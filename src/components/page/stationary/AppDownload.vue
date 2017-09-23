@@ -1,33 +1,35 @@
 <template>
-	<div>
+	<div class="download-container">
+		<img class="top-logo" :src="logo"/>
 		<div class="download-group">
 			<div class="download-item">
-				<a class="link" href="http://139.196.25.57/dl/yhb-2.0.6.6.apk">
-					<svg class="iconfont" aria-hidden="true">
-					    <use xlink:href="#icon-android"></use>
-					</svg>
-					Android</a>
-			</div>
-			<div class="download-item">
 				<a class="link" href="https://itunes.apple.com/cn/app/id1180849280">
-					<svg class="iconfont" aria-hidden="true">
+					<svg class="iconfont download-icon" aria-hidden="true">
 					    <use xlink:href="#icon-ios"></use>
 					</svg>
-					iOS</a>
+					iOS下载</a>
+			</div>
+			<div class="download-item">
+				<a class="link" href="http://139.196.25.57/dl/yhb-2.0.6.6.apk">
+					<svg class="iconfont download-icon" aria-hidden="true">
+					    <use xlink:href="#icon-android"></use>
+					</svg>
+					Android下载</a>
 			</div>
 		</div>
 		
-		
+		<img :src="footer" class="footer-img"/>
 	</div>
 </template>
 
 <script>
-	
+import { IMG } from '@/config/url'
 
 export default {
 	data () {
 		return {
-			
+			logo: IMG + '/app-download/logo-text.png',
+			footer: IMG + '/app-download/footer-img.png',
 		}
 	}
 }
@@ -35,20 +37,44 @@ export default {
 </script>
 
 <style scoped="scoped" lang="less">
+@import url("../../../config/base.less");
 
+.footer-img{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	z-index: -1;
+}
+.top-logo{
+	width: 4.693333rem;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 2rem ;
+}
+.download-icon{
+	font-size: 0.773333rem;
+}
+.download-container{
+	overflow: hidden;
+	min-height: 100vh;
+	position: relative;
+}
 .download-group{
-	margin-top: 4rem;
+	margin-top: 2.586666rem;
 }
 .download-item{
 	text-align: center;
 }
 .link{
-	width: 4rem;
-	line-height: 1.333333rem;
-	font-size: 0.64rem;
-	border-radius: 6px;
-	height: 1.333333rem;
-	border: 1px solid #57a3f3;
+	width: 8.533333rem;
+	line-height: 1.6rem;
+	font-size: 0.48rem;
+	border-radius: 1.6rem;
+	height: 1.6rem;
+	color: @white;
+	background-color: @theme;
+	border: 1px solid @theme;
 	margin: 0.333333rem;
 	display: inline-block;
 }

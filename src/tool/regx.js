@@ -51,7 +51,6 @@ export const  validateAlert = async ( form, rules, field) => {
 	if (!!rules[field]) {
 		for (const item of rules[field]) {
 			const tepmResult = await item.check(form[field].value)
-			console.log(458515)
 			if (!!item && !tepmResult) {
 				notice(item.message)
 				return false

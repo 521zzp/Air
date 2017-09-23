@@ -8,6 +8,7 @@ import router from '@/router'
 const state = {
 	text: '发送验证码',
 	sendAbel: true,
+	sendCodeLoading: false,
 }
 
 
@@ -15,30 +16,40 @@ const actions = {
 	async registSendCode ({ commit }, obj){
 		if (state.sendAbel) {
 			state.sendAbel = false
+			state.sendCodeLoading = true
 			fetch(REGISTER_SEND_CODE, postModelTwo(obj)).then(analy)
 				.then((datas)=>{
-					if (datas.code === 200){
-						feedback('ok', datas.msg)
-						let time = 60
-						state.text = time + 's后重新发送'
-						state.clock = setInterval(function () {
-							time--
+					state.sendCodeLoading = false
+					if (datas) {
+						if (datas.code === 200){
+							feedback('ok', datas.msg)
+							let time = 60
 							state.text = time + 's后重新发送'
-							if(time==0){
-								state.text = '发送验证码'
-								clearInterval(state.clock)
-								state.sendAbel = true
-							}
-						},1000)
-					}else{
-						feedback('waring', datas.msg)
+							state.clock = setInterval(function () {
+								time--
+								state.text = time + 's后重新发送'
+								if(time==0){
+									state.text = '发送验证码'
+									clearInterval(state.clock)
+									state.sendAbel = true
+								}
+							},1000)
+						}else{
+							feedback('error', datas.msg)
+							clearInterval(state.clock)
+							state.text = '发送验证码'
+							state.sendAbel = true
+						}
+					} else {
 						clearInterval(state.clock)
 						state.text = '发送验证码'
 						state.sendAbel = true
 					}
 			}).catch(function(error) {
+				feedback('waring', '网络异常')
 				state.sendAbel = true;
-			  })
+				state.sendCodeLoading = false
+			})
 		}
   	},
   	async register ({ commit }, obj) {

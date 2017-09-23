@@ -15,8 +15,6 @@ export const mutations = {
 		}
     },*/
     [types.NAV_CHANGE_TYPE] (state, obj) {
-    	
-    	console.log('mutaions: ' + obj)
 		state.nca = obj
     }
 }

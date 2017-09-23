@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {checkNotNull, checkPhone, checkInvitorPhone, checkPwd, validateAlert, resultTraversal} from '@/tool/regx'
+import {checkNotNull, checkPhone, checkInvitorPhone, checkPwd, validate, resultMerge} from '@/tool/regx'
 import Agreement from '@/components/page/stationary/Agreement'
 import { isPc } from '@/tool/tool'
 import { notice } from '@/tool/talk'
@@ -107,15 +107,15 @@ export default {
 	},
 	methods: {
 		vali (form, rules, field) {
-			//  validateAlert(form, rules, field) 
+			  validate(form, rules, field) 
 		},
 		async sendCode () {
- 			if (this.form.account.bool || await validateAlert(this.form, this.rules, 'account') ) {
+ 			if (this.form.account.bool || await validate(this.form, this.rules, 'account') ) {
 					this.$store.dispatch('registSendCode',{ account: this.form.account.value})
 			}
 		},
 		async formSubmit (form, rules) {
-			if (await resultTraversal(form, rules)) {
+			if (await resultMerge(form, rules)) {
 				let obj = {
 					account: this.form.account.value,
 					phoneCode: this.form.phoneCode.value,
@@ -126,6 +126,8 @@ export default {
 				} else{
 					notice('请仔细阅读并同意掌柜金服注册协议！')
 				}
+				
+				
 			}
 		},
 	},

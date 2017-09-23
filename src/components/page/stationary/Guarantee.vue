@@ -22,9 +22,7 @@
 	        			<div></div>
 	        		</div>
 	        	</div>
-	        	<div class="clearfix plant-one-footer">
-	        		<div></div>
-	        	</div>
+	        	<img class="plant-one-bg" :src="plantOneBg" alt="" />
 	        	<div class="arrow-bottom arrow-box" >
 			        <b class="bottom"><i class="bottom-arrow1"></i><i class="bottom-arrow2"></i></b>
 			    </div>
@@ -44,6 +42,7 @@ export default {
 	data () {
 		return {
 			notNextTick: true,
+			plantOneBg: IMG + '/guarantee/plant_one_bg.png',
        		swiperOption: {
        			direction: 'vertical',
 		    	loop: false,
@@ -69,13 +68,21 @@ export default {
 @import url("../../../config/base.less");
 
 .swiper-item{
+	background-color: #250075;
+}
+.plant-one-bg{
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 .container{
 	height: calc(100vh);
 	overflow: hidden;
 }
 .plant-one-wrap{
-	background-color: #ff3333;
+	background-color: #250075;
 	overflow: hidden;
 }
 .item-img{
@@ -90,10 +97,12 @@ export default {
 .plant-one-title{
 	display: block;
 	width: 100%;
+	font-size: 0.72rem;
 	margin: 10px auto;
 }
 .plant-one-symbol{
 	display: block;
+	font-size: 0.453333rem;
 }
 .plant-one-header{
 	margin-top: 50px;
@@ -157,26 +166,6 @@ export default {
 	display: block;
 	margin-top: 1.466666rem;
 	animation: guaranteeRadarWave 3s linear infinite;
-}
-.plant-one-footer{
-	width: 100%;
-	position: absolute;
-	bottom: 0;
-	height: calc(10vh);
-	background-image: url(../../../assets/guarantee/plant_one_p2.png);
-	background-size: calc(100vw) calc(10vh);
-	animation: guaranteeFootWaveOut 10s linear infinite;
-}
-.plant-one-footer>div{
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 80%;
-	background-image: url(../../../assets/guarantee/plant_one_p2.png);
-	background-size: calc(100vw) calc(8vh);
-	background-repeat-x: inherit;
-	background-position-x: calc(50vw);
-	animation: guaranteeFootWaveInner 8s linear infinite;
 }
 .arrow-down.icon {
   color: #000;

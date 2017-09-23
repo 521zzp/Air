@@ -13,7 +13,6 @@ export default {
   name: 'app',
    computed: {
     nca () {
-  		console.log('Hello.vue动画效果：' + this.$store.state.nca)
   		return this.$store.state.nca
   	}
   },

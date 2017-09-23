@@ -23,13 +23,12 @@ const ActivityShow = resolve => {
   })
 }
 
-
 /*
  * 一般通用功能
  */
 const Register = resolve => {
-  require.ensure(['@/components/page/general/Register2.vue'], () => {
-    resolve(require('@/components/page/general/Register2.vue'))
+  require.ensure(['@/components/page/general/Register.vue'], () => {
+    resolve(require('@/components/page/general/Register.vue'))
   })
 }
 const News = resolve => {
@@ -81,6 +80,21 @@ const AboutUs = resolve => {
   })
 }
 
+/*
+ * 活动页面
+ */
+//邀请好友
+const InviteFriend = resolve => {
+  require.ensure(['@/components/page/activity/17-09/InviteFriend.vue'], () => {
+    resolve(require('@/components/page/activity/17-09/InviteFriend.vue'))
+  })
+}
+//新手福利
+const JackarooWelfare = resolve => {
+  require.ensure(['@/components/page/activity/17-09/JackarooWelfare.vue'], () => {
+    resolve(require('@/components/page/activity/17-09/JackarooWelfare.vue'))
+  })
+}
 
 
 
@@ -204,12 +218,37 @@ const router = new Router({
       	weight: 1000
       }
 		},
+		//各种活动
+		{
+      path: '/17-09/inviteFriend',
+      name: 'InviteFriend',
+      component: InviteFriend,
+      meta: {
+      	weight: 1
+      }
+		},
+		{
+      path: '/17-09/jackarooWelfare',
+      name: 'JackarooWelfare',
+      component: JackarooWelfare,
+      meta: {
+      	weight: 1
+      }
+		},
+		
 		{
       path: '/*',
       name: 'notFound',
       component: NotFound
     },
-    ],
+  ],
+  scrollBehavior (to, from, savedPosition) {
+	  if (savedPosition) {
+	    return savedPosition
+	  } else {
+	    return { x: 0, y: 0 }
+	  }
+	}
 })
 
 router.beforeEach((to, from, next) => {

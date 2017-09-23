@@ -7,7 +7,7 @@ import store from '@/store'
 /*
  *  notice方法
  */
-export const notice = (msg = '提示消息', delay = 1000) => {
+export const notice = (msg = '提示消息', delay = 1500) => {
 	let config = null
 	config = {
 		msg: msg,
@@ -21,7 +21,7 @@ export const notice = (msg = '提示消息', delay = 1000) => {
 /*
  * feedback 用户操作反馈，带大图标
  */
-export const feedback = (type = 'ok', msg, close, delay = 1000, ) => {
+export const feedback = (type = 'ok', msg, close, delay = 1500, ) => {
 	let config = null
 	switch (type){
 		case 'ok':
