@@ -5,27 +5,30 @@
 		<mu-raised-button class="reg-btn" @click="register" label="立即注册"/>
 		
 		<div v-transfer-dom>
-	      <x-dialog v-model="showRaise" class="jackaroo-welfare-dialog">
+	      	<x-dialog v-model="showRaise" class="jackaroo-welfare-dialog">
 	        	<div class="dialog-title">加息券说明</div>
 	        	<div class="content">
 	        		<p>可用于增加理财项目的预期年化收益，使用加息券后，投资的理财项目将按照增加后的预期年化收益率计算预期收益。若加息券有券面限制时间，则该加息券的加息时间在限制时间内。</p>
    					<p>例如：1%的加息券限时15天，则使用后在第16天利率恢复到标的原利率。</p>
 	        	</div>
-	        <div @click="showRaise = false">
-	          <span class="dialog-close" >我知道了</span>
-	        </div>
-	    </x-dialog>
-    </div>
+		        <div @click="showRaise = false">
+		          <span class="dialog-close" >我知道了</span>
+		        </div>
+	   	 	</x-dialog>
+   		</div>
 	</div>
 </template>
 
 <script>
 
 import { IMG } from '@/config/url'
-import { XDialog } from 'vux'
+import { XDialog, TransferDomDirective as TransferDom } from 'vux'
 import { callAppRouter } from '@/tool/bridge'
 
 export default {
+	directives: {
+	    TransferDom
+	},
 	data () {
 		return {
 			img: IMG + '/activity/jackaroo-welfare/bg.png',

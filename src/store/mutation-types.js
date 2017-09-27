@@ -11,6 +11,7 @@ export const ACTIVITY_SHOW_IMG = 'ACTIVITY_SHOW_IMG' //普通展示新闻展示�
 
 
 
-
+//产品相关
+export const PRODUCT_INFO = 'PRODUCT_INFO' //产品详情，根据产品id获取产品详情
 
 

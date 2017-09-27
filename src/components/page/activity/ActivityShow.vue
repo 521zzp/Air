@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<img v-if="status" class="act-img" src="http://192.168.3.4/mobile/531-H5.jpg"/>
+		<img v-if="status" class="act-img" :src="img"/>
 		<span class="error-link" v-else="status">
 			<svg class="iconfont" aria-hidden="true">
 			    <use xlink:href="#icon-sad"></use>
@@ -35,9 +35,12 @@
 .error-link{
 	line-height: 1.5;
 	display: block;
+	width: 100;
 	text-align: center;
 	margin-top: 4.8rem;
 	font-size: 0.773333rem;
+	-webkit-user-select:none; 
+	user-select: none;
 }
 .act-img{
 	width: 100%;

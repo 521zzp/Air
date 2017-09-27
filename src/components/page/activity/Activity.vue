@@ -2,7 +2,7 @@
 	<div class="container">
 		<router-link to="/">
 		<img class="act-img" src="http://192.168.3.4/mobile/531-H5.jpg"/>
-			</router-link>
+		</router-link>
 	</div>
 </template>
 

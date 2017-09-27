@@ -3,14 +3,14 @@
 		<img class="top-logo" :src="logo"/>
 		<div class="download-group">
 			<div class="download-item">
-				<a class="link" href="https://itunes.apple.com/cn/app/id1180849280">
+				<a class="link" href="https://itunes.apple.com/cn/app/id1287033031">
 					<svg class="iconfont download-icon" aria-hidden="true">
 					    <use xlink:href="#icon-ios"></use>
 					</svg>
 					iOS下载</a>
 			</div>
 			<div class="download-item">
-				<a class="link" href="http://139.196.25.57/dl/yhb-2.0.6.6.apk">
+				<a class="link" href="">
 					<svg class="iconfont download-icon" aria-hidden="true">
 					    <use xlink:href="#icon-android"></use>
 					</svg>

@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 import Home from '@/components/Home'
-import Inner from '@/components/Inner'
 
 
 const Activity = resolve => {
@@ -79,6 +77,29 @@ const AboutUs = resolve => {
     resolve(require('@/components/page/stationary/AboutUs.vue'))
   })
 }
+/*
+ * 产品相关信息
+ */
+const ProductInfo = resolve => {
+  require.ensure(['@/components/page/product/ProductInfo.vue'], () => {
+    resolve(require('@/components/page/product/ProductInfo.vue'))
+  })
+}
+/*
+ * 扩展功能
+ */
+//每日抽奖
+const LuckyDraw = resolve => {
+  require.ensure(['@/components/page/expand/LuckyDraw.vue'], () => {
+    resolve(require('@/components/page/expand/LuckyDraw.vue'))
+  })
+}
+//视频播放
+const VideoPlayer = resolve => {
+  require.ensure(['@/components/page/expand/VideoPlayer.vue'], () => {
+    resolve(require('@/components/page/expand/VideoPlayer.vue'))
+  })
+}
 
 /*
  * 活动页面
@@ -95,6 +116,12 @@ const JackarooWelfare = resolve => {
     resolve(require('@/components/page/activity/17-09/JackarooWelfare.vue'))
   })
 }
+//双节活动
+const TwoFestival = resolve => {
+  require.ensure(['@/components/page/activity/17-09/TwoFestival.vue'], () => {
+    resolve(require('@/components/page/activity/17-09/TwoFestival.vue'))
+  })
+}
 
 
 
@@ -106,19 +133,19 @@ const router = new Router({
 	mode: 'history',
 	routes: [
 		{
-      path: '/',
-      name: 'Hello',
-      component: Hello,
-      meta: {
-      	weight: 100000
-      }
-		},
-		{
       path: '/register',
       name: 'register',
       component: Register,
       meta: {
       	weight: 1000000
+      }
+		},
+		{
+      path: '/projectIntroduction/:id',
+      name: 'ProductInfo',
+      component: ProductInfo,
+      meta: {
+      	weight: 1
       }
 		},
 		{
@@ -210,12 +237,21 @@ const router = new Router({
       	weight: 10000
       }
 		},
+		//扩展功能
 		{
-      path: '/inner',
-      name: 'inner',
-      component: Inner,
+      path: '/videoPlayer',
+      name: 'videoPlayer',
+      component: VideoPlayer,
       meta: {
-      	weight: 1000
+      	weight: 1
+      }
+		},
+		{
+      path: '/luckyDraw',
+      name: 'luckyDraw',
+      component: LuckyDraw,
+      meta: {
+      	weight: 1
       }
 		},
 		//各种活动
@@ -235,7 +271,14 @@ const router = new Router({
       	weight: 1
       }
 		},
-		
+		{
+      path: '/17-09/twoFestival',
+      name: 'TwoFestival',
+      component: TwoFestival,
+      meta: {
+      	weight: 1
+      }
+		},
 		{
       path: '/*',
       name: 'notFound',

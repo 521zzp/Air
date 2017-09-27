@@ -8,7 +8,6 @@ export const jsonay = (response) => response.json();
 
 
 export const status = (response) => {
-	console.log(response)
 	if (response.status >= 200 && response.status < 300) {
 	    	return response
 	  }
@@ -25,7 +24,6 @@ export const analy = (response) => Promise.resolve(response).then(status).then(j
  */
 export const resultAny = (datas) => {
 	
-	console.log(JSON.stringify(datas)) //数据打印
 	if (datas.code === 200) {
 		if (Object.getOwnPropertyNames(datas.result).length === 1 && datas.result.list && Array.isArray(datas.result.list)) { 
 			//返回数据里面仅有一个属性，属性名为list，且对应值类型为Array时返回该list

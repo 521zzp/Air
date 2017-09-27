@@ -19,3 +19,5 @@ export const NEWS_ITEM = BASEURL + '/news' //获取新闻详情信息
 export const ACTIVITY_SHOW_IMG = BASEURL + '/getActivityImg.do' //普通展示新闻展示图片
 
 
+//产品相关
+export const PRODUCT_INFO = BASEURL + '/getProductDes.do' //产品详情，根据产品id获取产品详情
