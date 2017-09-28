@@ -10,6 +10,7 @@
 <script>
 import { IMG } from '@/config/url'
 import { callAppRouter } from '@/tool/bridge'
+import { os } from '@/tool/tool'
 
 export default {
 	data () {
@@ -19,12 +20,22 @@ export default {
 	},
 	methods: {
 		share () {
-			callAppRouter('share', null, function (err, res) {
-			})
+			if (os().isAndroid) {
+				window.location = window.location + '?action=1'
+			} else{
+				callAppRouter('share', null, function (err, res) {
+				})
+			}
+			
 		},
 		introduceVIP () {
-			callAppRouter('introduceVIP', null, function (err, res) {
+			if (os().isAndroid) {
+				window.location = window.location + '?action=2'
+			} else{
+				callAppRouter('introduceVIP', null, function (err, res) {
 			})
+			}
+			
 		}
 	}
 }

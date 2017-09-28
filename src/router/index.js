@@ -89,17 +89,17 @@ const ProductInfo = resolve => {
  * 扩展功能
  */
 //每日抽奖
-const LuckyDraw = resolve => {
+/*const LuckyDraw = resolve => {
   require.ensure(['@/components/page/expand/LuckyDraw.vue'], () => {
     resolve(require('@/components/page/expand/LuckyDraw.vue'))
   })
-}
+}*/
 //视频播放
-const VideoPlayer = resolve => {
+/*const VideoPlayer = resolve => {
   require.ensure(['@/components/page/expand/VideoPlayer.vue'], () => {
     resolve(require('@/components/page/expand/VideoPlayer.vue'))
   })
-}
+}*/
 
 /*
  * 活动页面
@@ -238,7 +238,7 @@ const router = new Router({
       }
 		},
 		//扩展功能
-		{
+		/*{
       path: '/videoPlayer',
       name: 'videoPlayer',
       component: VideoPlayer,
@@ -253,7 +253,7 @@ const router = new Router({
       meta: {
       	weight: 1
       }
-		},
+		},*/
 		//各种活动
 		{
       path: '/17-09/inviteFriend',

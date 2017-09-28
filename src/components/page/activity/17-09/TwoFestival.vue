@@ -1,7 +1,7 @@
 <template>
 	<div class="two-festival-container">
 		<img class="bg-img" :src="img" alt="" />
-		<mu-raised-button v-if="!iOS" class="buy-btn" @click="buy" label="立即投资"/>
+		<!--<mu-raised-button v-if="!iOS" class="buy-btn" @click="buy" label="立即投资"/>-->
 	</div>
 </template>
 

@@ -10,7 +10,7 @@
 					iOS下载</a>
 			</div>
 			<div class="download-item">
-				<a class="link" href="">
+				<a class="link" href="http://www.shangnongtou.com/static_img/apk/zgjf.apk" target="_blank">
 					<svg class="iconfont download-icon" aria-hidden="true">
 					    <use xlink:href="#icon-android"></use>
 					</svg>
@@ -50,7 +50,7 @@ export default {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 2rem ;
+	margin-top: 1.6rem ;
 }
 .download-icon{
 	font-size: 0.773333rem;
@@ -61,7 +61,7 @@ export default {
 	position: relative;
 }
 .download-group{
-	margin-top: 2.586666rem;
+	margin-top: 1.6rem;
 }
 .download-item{
 	text-align: center;

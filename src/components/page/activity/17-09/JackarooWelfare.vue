@@ -98,7 +98,7 @@ export default {
 }
 .what-raise{
 	font-size: 0.4rem;
-	color: #ffcf12;
+	color: @white;
 	position: absolute;
 	top: 11.333333rem;
 	display: block;
