@@ -31,6 +31,11 @@
 			<div class="rigist-item-wrap">
 				 <mu-raised-button  @click="formSubmit(form, rules)" label="注册并领取理财礼券" class="regist-item regist-submit" fullWidth/>
 			</div>
+			<div class="rigist-item-wrap" >
+				
+				<router-link to="/app" class="to-download-app"><mu-raised-button label="下载APP" class="regist-item regist-submit" fullWidth/></router-link>
+			</div>
+			
 			<mu-dialog :open="dialog"  @close="dialog = flase" scrollable >
 				<Agreement class="agree-content"/>
 			</mu-dialog>
@@ -163,11 +168,16 @@ export default {
 @import url("../../../config/base.less");
 
 
+
 .loading-circle{
 	line-height: 1;
 	margin-right: .2em;
 	vertical-align: middle;
 	color: @theme;
+}
+.to-download-app{
+	color: @white;
+	font-size: 0.48rem;
 }
 .intro-img{
 	position: relative;

@@ -14,7 +14,7 @@
 			<div class="item border"><span class="fl title">借款金额</span><span class="fr value">{{ debtor.money }}</span></div>
 			<div class="item border"><span class="fl title">借款用途</span><span class="fr value">{{ debtor.purpose }}</span></div>
 			<div class="item border"><span class="fl title">安全措施</span><span class="fr value" v-html="debtor.safe"></span></div>
-			<div class="item"><span class="fl title">还款来源</span><span class="fr" v-html="debtor.repayment">{{ debtor.name }}</span></div>
+			<div class="item"><span class="fl title">还款来源</span><span class="fr value" v-html="debtor.repayment">{{ debtor.name }}</span></div>
 			<div class="desc" v-html="debtor.desc"></div>
 		</div>
 		
@@ -29,7 +29,6 @@
 			<div class="item border"><span class="fl title">企业近期财务报表</span><span class="fr">{{ report.financeReport ? '已审核' : '未审核' }}</span></div>
 			<div class="item"><span class="fl title">企业近期审计报告</span><span class="fr">{{ report.auditReport ? '已审核' : '未审核' }}</span></div>
 		</div>
-		
 	</div>
 </template>
 
@@ -77,11 +76,9 @@ export default {
 				
 		.tite{
 			height: 1.386666rem;
-			
 			line-height: 1.386666rem;
 			padding-left: 0.453333rem;
 			color: #666666;
-			
 		}
 		
 		.item{

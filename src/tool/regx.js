@@ -127,7 +127,7 @@ export const checkInvitorPhone = ( value ) => {
  * 验证密码格式，返回布尔
  */
 export const checkPwd = ( value ) => {
-	let regx = /^(?![^a-zA-Z]+$)(?!\D+$).{6,18}$/;
+	let regx = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,18}$/;
 	if (!regx.test(value)) {
 		return false;
 	} else{
