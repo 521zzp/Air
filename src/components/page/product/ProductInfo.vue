@@ -9,12 +9,12 @@
 		</div>
 		
 		<div class="group">
-			<div class="tite border">借款方介绍</div>
-			<div class="item border"><span class="fl title">借款方</span><span class="fr value">{{ debtor.name }}</span></div>
-			<div class="item border"><span class="fl title">借款金额</span><span class="fr value">{{ debtor.money }}</span></div>
-			<div class="item border"><span class="fl title">借款用途</span><span class="fr value">{{ debtor.purpose }}</span></div>
-			<div class="item border"><span class="fl title">安全措施</span><span class="fr value" v-html="debtor.safe"></span></div>
-			<div class="item"><span class="fl title">还款来源</span><span class="fr value" v-html="debtor.repayment">{{ debtor.name }}</span></div>
+			<div v-if="show" class="tite border">借款方介绍</div>
+			<div v-if="show" class="item border"><span class="fl title">借款方</span><span class="fr value">{{ debtor.name }}</span></div>
+			<div v-if="show" class="item border"><span class="fl title">借款金额</span><span class="fr value">{{ debtor.money }}</span></div>
+			<div v-if="show" class="item border"><span class="fl title">借款用途</span><span class="fr value">{{ debtor.purpose }}</span></div>
+			<div v-if="show" class="item border"><span class="fl title">安全措施</span><span class="fr value" v-html="debtor.safe"></span></div>
+			<div v-if="show" class="item"><span class="fl title">还款来源</span><span class="fr value" v-html="debtor.repayment">{{ debtor.name }}</span></div>
 			<div class="desc" v-html="debtor.desc"></div>
 		</div>
 		
@@ -40,6 +40,9 @@ export default {
 		}
 	},
 	computed: {
+		show () {
+			return this.$store.state.productInfo.isShow
+		},
 		project () {
 			return this.$store.state.productInfo.project
 		},

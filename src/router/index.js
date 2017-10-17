@@ -124,7 +124,6 @@ const TwoFestival = resolve => {
 }
 
 
-
 import store from '@/store'
 
 Vue.use(Router)

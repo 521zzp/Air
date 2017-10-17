@@ -3,7 +3,6 @@ export const BASEURL = '/mapi' //服务器地址陈
 
 //export const IMG = 'http://192.168.3.10/assets/mobile' //本地图片服务器地址
 export const IMG = '/assets/mobile'//服务器移动端图片地址
-//export const IMG = 'http://139.196.25.57/res' //57图片服务器地址
 
 
 
