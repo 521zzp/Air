@@ -10,6 +10,13 @@ export const NEWS_ITEM = 'NEWS_ITEM' //新闻详情信息
 export const ACTIVITY_SHOW_IMG = 'ACTIVITY_SHOW_IMG' //普通展示新闻展示图片
 
 
+//固定不变部分
+export const LOAN_AGREEMENT = 'LOAN_AGREEMENT'  //借款协议
+
+//服务
+export const CUSTOMER_SERVICE_ENQUIRE = 'CUSTOMER_SERVICE_ENQUIRE' //询问是否可以连接
+export const CUSTOMER_SERVER_RECEIVE = 'CUSTOMER_SERVER_RECEIVE' //收到服务器推送消息
+
 
 //产品相关
 export const PRODUCT_INFO = 'PRODUCT_INFO' //产品详情，根据产品id获取产品详情

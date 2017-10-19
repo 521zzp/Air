@@ -1,4 +1,4 @@
-import * as types from '../mutation-types'
+import * as types from '../../mutation-types'
 import { PRODUCT_INFO } from '@/config/url'
 import { postModelTwo, analy } from '@/tool/net'
 

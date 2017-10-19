@@ -5,7 +5,9 @@ import { mutations } from './mutations'
 import register from './modules/register'
 import news from './modules/news'
 import activity from './modules/activity'
-import productInfo from './modules/productInfo'
+import productInfo from './modules/stationary/productInfo'
+import loanAgreement from './modules/stationary/loanAgreement'
+import customerService from './modules/service/customerService' //客服
 
 Vue.use(Vuex)
 let token = '';
@@ -62,6 +64,8 @@ const store = new Vuex.Store({
 		news,
 		activity,
 		productInfo,
+		loanAgreement,
+		customerService,
 	}
 })
 

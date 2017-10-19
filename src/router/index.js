@@ -35,6 +35,17 @@ const News = resolve => {
   })
 }
 /*
+ * 服务功能
+ */
+//在线客服
+const CustomerService = resolve => {
+  require.ensure(['@/components/page/service/CustomerService.vue'], () => {
+    resolve(require('@/components/page/service/CustomerService.vue'))
+  })
+} 
+
+
+/*
  * stationary 固定不变的一些页面
  */
 const AppDownload = resolve => {
@@ -77,6 +88,12 @@ const AboutUs = resolve => {
     resolve(require('@/components/page/stationary/AboutUs.vue'))
   })
 }
+const LoanAgreement = resolve => {
+  require.ensure(['@/components/page/stationary/LoanAgreement.vue'], () => {
+    resolve(require('@/components/page/stationary/LoanAgreement.vue'))
+  })
+}
+
 /*
  * 产品相关信息
  */
@@ -139,6 +156,9 @@ const router = new Router({
       	weight: 1000000
       }
 		},
+		/*
+		 * 产品相关信息
+		 */
 		{
       path: '/projectIntroduction/:id',
       name: 'ProductInfo',
@@ -147,6 +167,9 @@ const router = new Router({
       	weight: 1
       }
 		},
+		/*
+		 * 通用功能
+		 */
 		{
       path: '/news/:id',
       name: 'News',
@@ -163,6 +186,20 @@ const router = new Router({
       	weight: 1
       }
 		},
+		/*
+		 * 服务
+		 */
+		{
+      path: '/customerService/:account',
+      name: 'CustomerService',
+      component: CustomerService,
+      meta: {
+      	weight: 1
+      }
+		},
+		/*
+		 * 固定功能
+		 */
 		{
       path: '/guide',
       name: 'Guide',
@@ -203,6 +240,17 @@ const router = new Router({
       	weight: 1
       }
 		},
+		{
+      path: '/loanAgreement/:id/:account/:money',
+      name: 'LoanAgreement',
+      component: LoanAgreement,
+      meta: {
+      	weight: 1
+      }
+		},
+		/*
+		 * 活动
+		 */
 		{
       path: '/riskReveal/:product',
       name: 'RiskReveal',
