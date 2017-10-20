@@ -1,57 +1,41 @@
 <template>
 	<div class="customer-service-container">
-		<div class="chat-content">
-			<div class="clerk">
-				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
-				<div class="content-wrap clearfix">
-					<span class="time fl">10:21</span>
-					<span class="content">jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer
-						jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer</span>
-				</div>
+		<div v-show="busy" class="busy">
+			<span class="busy-msg">
+				抱歉！当前咨询人数较多，客服可能无法即时回复您的问题，
+				建议转接电话客服。
+			</span>
+			<svg class="busy-close fr" aria-hidden="true" @click="busyClose">
+			    <use xlink:href="#icon-close"></use>
+			</svg>
+			<div class="busy-phone">
+				<a  href="tel:4000082623">拨打客服电话>></a>
 			</div>
-			<div class="clerk">
-				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
-				<div class="content-wrap clearfix">
-					<span class="time fl">10:21</span>
-					<span class="content">jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer
-						jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer</span>
-				</div>
+		</div>
+		<div class="chat-content" :class=" {'chat-content-busy': busy }" ref="chatContent">
+			<div v-if="more" class="get-more-wrap">
+				<span class="get-more" @click="getHistoryRecords">加载更多</span>
 			</div>
-			<div class="clerk">
-				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
+			<div v-for="item,index in records" :key="index" :class="recordItemClass(item.sender)">
+				<!--<mu-avatar v-if="item.sender === 1" class="face" 
+					:src="item.userImg"
+					 color="deepOrange300" backgroundColor="purple500">
+					{{ item.userImg ? '' : item.userNickName[0] }}
+				</mu-avatar>-->
+				<img  v-if="item.sender === 1" class="face" src="../../../assets/customerServer/customer.png"/>
+				<img  v-else class="face" src="../../../assets/customerServer/servicer.png"/>
 				<div class="content-wrap clearfix">
-					<span class="time fl">10:21</span>
-					<span class="content">jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer
-						jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer</span>
+					<span class="time">{{timeFormat(item.time)}}</span>
+					<span class="content">{{item.content}}</span>
 				</div>
-			</div>
-			<div class="clerk">
-				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
-				<div class="content-wrap clearfix">
-					<span class="time fl">10:21</span>
-					<span class="content">jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer
-						jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer</span>
-				</div>
-			</div>
-			<div class="clerk">
-				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
-				<div class="content-wrap clearfix">
-					<span class="time fl">10:21</span>
-					<span class="content">jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer
-						jsdakhgndkflhklfdnkhldnfhnadkfhnaretujaerjsdakhgndkflhklfdnkhldnfhnadkfhnaretujaer</span>
-				</div>
-			</div>
-			
-			
-			<div class="customer">
-				<!--<Avatar class="face" icon="customer-service" />-->
+			</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+			<!--<div class="customer">
 				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
 				<div class="content-wrap clearfix">
 					<span class="time fl">10:21</span>
 					<span class="content">asafasfaf</span>
-					
 				</div>
-			</div>
+			</div>-->
 		</div>
 		
 		<div class="chat-component">
@@ -79,7 +63,6 @@ export default {
 	created () {
 		const account = this.$route.params.account
 		this.account = account
-		//this.$store.dispatch('customerServiceSocketConnect', { account })
 	},
 	computed: {
 		enquireFlag () {
@@ -87,6 +70,18 @@ export default {
 		},
 		socketOn () {
 			return this.$store.state.customerService.socketOn
+		},
+		records () {
+			return this.$store.state.customerService.records
+		},
+		scroll () {
+			return this.$store.state.customerService.scroll
+		},
+		scrollBehavior () {
+			return this.$store.state.customerService.scrollBehavior
+		},
+		more () {
+			return this.$store.state.customerService.more
 		}
 	},
 	watch: {
@@ -96,28 +91,107 @@ export default {
 			} else {
 				this.busy = true
 			}
+		},
+		scroll () {
+			console.log(this.scrollBehavior)
+			const vm = this
+			setTimeout(function () {
+				switch (vm.scrollBehavior){
+					case 'stable':
+						break;
+					case 'top':
+					vm.$refs.chatContent.scrollTop = 0
+						break;
+					case 'bottom':
+						console.log(vm.$refs.chatContent.scrollTop)
+						console.log(vm.$refs.chatContent.scrollHeight)
+						vm.$refs.chatContent.scrollTop = vm.$refs.chatContent.scrollHeight + 100
+						break;
+					default:
+						break;
+				}
+				
+			},100)
+			
 		}
 	},
 	
 	methods: {
 		send () {
-			if (this.socketOn) {
-				
-			} else {
-				this.$store.dispatch('customerServiceEnquire', { account: this.account, content: this.msg })
+			if (this.msg !== '') {
+				if (this.socketOn) {
+					this.$store.dispatch('customerServiceSocketSend', { content: this.msg, sender: 1 })
+				} else {
+					this.$store.dispatch('customerServiceEnquire', { account: this.account, content: this.msg, type: 1 })
+				}
+				this.msg = ''
 			}
+		},
+		busyClose () {
+			this.busy = false
+		},
+		recordItemClass (sender) {
+			return {
+				clerk: sender === 0,
+				customer: sender === 1
+			}
+		},
+		timeFormat (time) {
+			const length = new Date().getTime() - time
+			if (length <  60 * 1000 ) {
+				return Math.ceil(length / (  1000 )) + '秒前'
+			} else if (length < 1000 * 60 * 60 * 24 ) {
+				return new Date(time).Format('HH:mm')
+			} else {
+				return new Date(time).Format('yyyy-MM-dd HH:mm')
+			}
+		},
+		getHistoryRecords () {
+			this.$store.dispatch('customerServiceSocketGetHistoryRecords')
 		}
 	}
 }
-
 </script>
+
 
 <style scoped="scoped">
 
+
+.get-more-wrap{
+	text-align: center;
+	padding: 0.133333rem 0;
+}
+.get-more{
+	background-color: #DCDCDC;
+	padding: 0.066666rem 0.133333rem;
+	border-radius: 0.053333rem;
+}
 .more{
 	margin-left: 0.16rem;
 	margin-top: 0.4rem;
 	float: left;
+}
+.busy-close{
+	width: 0.48rem;
+	height: 0.48rem;
+	position: absolute;
+	right: 0.453333rem;
+	top: 0.4rem;
+}
+.busy-msg{
+	display: block;
+	margin-right: 0.426666rem;
+}
+.busy-phone{
+	text-align: center;
+}
+.busy{
+	padding: 0.4rem 0.453333rem 0.266666rem 0.453333rem;
+	position: fixed;
+	top: 0;
+	height: 2.133333rem;
+	background-color: #fff8f5;
+	transition: all .3s; 
 }
 .send{
 	margin-right: 0.24rem;
@@ -163,6 +237,10 @@ export default {
 	overflow: auto;
 	display: block;
 	padding-top: 0.133333rem;
+	transition: all .3s; 
+}
+.chat-content-busy{
+	height: calc(100vh - 3.733333rem);
 }
 .clerk,.customer{
 	margin-bottom: 0.266666rem;

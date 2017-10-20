@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import 'whatwg-fetch' //兼容IE fetch
 import '@/config/theme.less'
-
+import {dateFormat} from '@/tool/date'
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
@@ -26,6 +26,8 @@ Vue.component(DatetimePicker.name, DatetimePicker)
 import '@/tool/flexible.js'
 import '@/config/icon/iconfont.js'
 
+
+dateFormat(); //给日期添加格式化方法
 
 Vue.config.productionTip = false
 
