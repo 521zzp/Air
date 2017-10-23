@@ -76,12 +76,7 @@ const mutations = {
 				state.scroll++
 				state.more = obj.more
 				break;
-			case 'CLERK_SEND':
-				state.records = state.records.concat(obj.record)
-				state.scrollBehavior = 'bottom'
-				state.scroll++
-				break;
-			case 'CUSTOMER_SEND':
+			case 'COMMON_SEND':
 				state.records = state.records.concat(obj.record)
 				state.scrollBehavior = 'bottom'
 				state.scroll++

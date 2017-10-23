@@ -1,0 +1,128 @@
+<template>
+	<div class="chat-component-wrap" :class="{ 'operate-show': operateShow }">
+		<div class="chat-component">
+			<svg class="iconfont operate more" aria-hidden="true" @click.stop="showOperate">
+			    <use xlink:href="#icon-add1"></use>
+			</svg>
+			<textarea class="input-content" v-model="msg" ></textarea>
+			<svg class="iconfont operate fr send" aria-hidden="true" @click="send">
+			    <use xlink:href="#icon-send"></use>
+			</svg>
+		</div>
+		<div class="more-operate">
+			<div class="album">
+				<input type="file" name="ss" id="ss" value="" @change="imgSelected" />
+				<label for="ss">从相册选择图片</label>
+			</div>
+			<div class="camera">
+				
+				<span>使用相机拍照</span>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+
+export default {
+	props: [ 'operateShow' ],
+	data () {
+		return {
+			msg: '呵呵哒！',
+			
+		}
+	},
+	methods: {
+		send (){
+			console.log(5)
+			if (this.msg !== '') {
+				this.$emit('send', this.msg)
+			}
+			this.msg  = ''
+		},
+		showOperate (e) {
+			if (this.operateShow) {
+				this.$emit('operateSwitch', false)
+			} else{
+				this.$emit('operateSwitch', true)
+			}
+			
+		},
+		imgSelected (e) {
+			console.log(e)
+			console.log(e.target)
+			console.log(e.target.files[0])
+			const file = e.target.files[0]
+			const reader = new FileReader()
+			reader.readAsArrayBuffer(file);
+			reader.onload = function loaded(e) {
+				console.log(12)
+				var binaryString  = e.target.result
+				console.log(binaryString)
+			}
+			
+			
+		}
+	}
+}
+</script>
+
+<style scoped="scoped">
+	
+.send{
+	margin-right: 0.24rem;
+	margin-top: 0.4rem;
+}
+.album, .camera{
+	width: 2.666666rem;
+	height: 2.666666rem;
+	background-color: greenyellow;
+}
+.operate{
+	width: 0.8rem;
+	height: 0.8rem;
+	color: #999999;
+}
+.more-operate{
+	height: 4.8rem;
+	background-color: #FFFFFF;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.chat-component-wrap{
+	height: 1.6rem;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.chat-component-wrap.operate-show{
+	height: 6.4rem;
+}
+.chat-component{
+	background-color: #FFFFFF;
+	height: 1.6rem;
+}
+.input-content{
+	width: 7.52rem;
+	height: 1.066666rem;
+	background-color: #efeff4;
+	border-radius: 0.106666rem;
+	border: none;
+	margin-top: 0.266666rem;
+	resize: none;
+	font-size: 0.48rem;
+	padding: 0.186666rem 0.133333rem;
+	display: inline-block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+.more{
+	margin-left: 0.16rem;
+	margin-top: 0.4rem;
+	float: left;
+}
+</style>

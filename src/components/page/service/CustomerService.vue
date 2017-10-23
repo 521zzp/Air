@@ -1,5 +1,5 @@
 <template>
-	<div class="customer-service-container">
+	<div class="customer-service-container" @click="operateSwitch(false)">
 		<div v-show="busy" class="busy">
 			<span class="busy-msg">
 				抱歉！当前咨询人数较多，客服可能无法即时回复您的问题，
@@ -37,20 +37,12 @@
 				</div>
 			</div>-->
 		</div>
-		
-		<div class="chat-component">
-			<svg class="iconfont operate more" aria-hidden="true">
-			    <use xlink:href="#icon-add1"></use>
-			</svg>
-			<textarea class="input-content" v-model="msg" ></textarea>
-			<svg class="iconfont operate fr send" aria-hidden="true" @click="send">
-			    <use xlink:href="#icon-send"></use>
-			</svg>
-		</div>
+		<ChatComponent  @send="textSend" :operateShow="operateShow" @operateSwitch="operateSwitch"/>
 	</div>
 </template>
 
 <script>
+import ChatComponent from '@/components/page/service/ChatComponent'
 
 export default {
 	data () {
@@ -58,6 +50,7 @@ export default {
 			msg: '呵呵哒！',
 			account: '',
 			busy: false,
+			operateShow: false,
 		}
 	},
 	created () {
@@ -117,14 +110,11 @@ export default {
 	},
 	
 	methods: {
-		send () {
-			if (this.msg !== '') {
-				if (this.socketOn) {
-					this.$store.dispatch('customerServiceSocketSend', { content: this.msg, sender: 1 })
-				} else {
-					this.$store.dispatch('customerServiceEnquire', { account: this.account, content: this.msg, type: 1 })
-				}
-				this.msg = ''
+		textSend (msg) {
+			if (this.socketOn) {
+				this.$store.dispatch('customerServiceSocketSend', { content: msg, sender: 1 })
+			} else {
+				this.$store.dispatch('customerServiceEnquire', { account: this.account, content: msg, type: 1 })
 			}
 		},
 		busyClose () {
@@ -148,7 +138,20 @@ export default {
 		},
 		getHistoryRecords () {
 			this.$store.dispatch('customerServiceSocketGetHistoryRecords')
+		},
+		operateSwitch (flag) {
+			console.log('operate swithc')
+			console.log(flag)
+			this.operateShow = flag
+			/*if (!this.socketOn) {
+				this.$store.dispatch('customerServiceEnquire', { account: this.account, content: '', type: 1 })
+			} else{
+				this.operateShow = flag
+			}*/
 		}
+	},
+	components: {
+		ChatComponent
 	}
 }
 </script>
@@ -165,11 +168,6 @@ export default {
 	background-color: #DCDCDC;
 	padding: 0.066666rem 0.133333rem;
 	border-radius: 0.053333rem;
-}
-.more{
-	margin-left: 0.16rem;
-	margin-top: 0.4rem;
-	float: left;
 }
 .busy-close{
 	width: 0.48rem;
@@ -193,40 +191,6 @@ export default {
 	background-color: #fff8f5;
 	transition: all .3s; 
 }
-.send{
-	margin-right: 0.24rem;
-	margin-top: 0.4rem;
-}
-.operate{
-	width: 0.8rem;
-	height: 0.8rem;
-	color: #999999;
-}
-.chat-component{
-	background-color: #FFFFFF;
-	height: 1.6rem;
-	width: 100%;
-	bottom: 0;
-	position: fixed;
-}
-.input-content{
-	width: 7.52rem;
-	height: 1.066666rem;
-	background-color: #efeff4;
-	border-radius: 0.106666rem;
-	border: none;
-	margin-top: 0.266666rem;
-	resize: none;
-	font-size: 0.48rem;
-	padding: 0.186666rem 0.133333rem;
-	display: inline-block;
-	position: absolute;
-	left: 0;
-	right: 0;
-	margin-left: auto;
-	margin-right: auto;
-}
-	
 .customer-service-container{
 	background-color: #efeff4;
 	height: calc(100vh);
@@ -243,14 +207,17 @@ export default {
 	height: calc(100vh - 3.733333rem);
 }
 .clerk,.customer{
+	padding: 0 0.453333rem;
 	margin-bottom: 0.266666rem;
 }
 .clerk .content-wrap{
 	padding: 0 0 0 1.6rem ;
 }
-.clerk, .customer{
-	padding: 0 0.453333rem;
-	animation: mtFadeIn .8s ease;
+.clerk{
+	animation: myLeftFadeIn .8s ease;
+}
+.customer{
+	animation: myRightFadeIn .8s ease;
 }
 .clerk .face{
 	float: left;
@@ -333,4 +300,25 @@ export default {
 	}
 }
 	
+@keyframes myLeftFadeIn{
+	from{
+		opacity: 0;
+		transform: translateX(-30px);
+	}
+	to{
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+@keyframes myRightFadeIn{
+	from{
+		opacity: 0;
+		transform: translateX(30px);
+	}
+	to{
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
 </style>
