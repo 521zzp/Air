@@ -1,5 +1,5 @@
 import * as types from '../../mutation-types'
-import { CUSTOMER_SERVICE_WEBSOCKET, CUSTOMER_SERVICE_ENQUIRE } from '@/config/url'
+import { CUSTOMER_SERVICE_WEBSOCKET, CUSTOMER_SERVICE_ENQUIRE, CUSTOMER_SERVICE_UPLOAD_IMAGE } from '@/config/url'
 import { postModelTwo, analy } from '@/tool/net'
 
 const state = {
@@ -50,6 +50,28 @@ const actions = {
   	},
   	customerServiceSocketSend({ commit }, obj) {
   		state.socket.send(JSON.stringify({ ...obj, socketType: 'COMMON_SEND', userId: state.userId, serviceId: state.serviceId, type: 1 }))
+  	},
+  	customerServiceSocketUploadImage ({ commit }, obj) {
+  		const form = new FormData()
+  		form.append('image', obj)
+  		form.append('userId', state.userId)
+  		form.append('serviceId', state.serviceId)
+  		form.append('sender', 1)
+  		
+  		
+  		fetch(CUSTOMER_SERVICE_UPLOAD_IMAGE, {
+  			method: 'post',
+  			credentials: 'include',
+  			body: form
+  		}).then(analy).then(
+  			data => console.log(data)
+  		)
+  		
+  		
+  		
+  		/*console.log('socket send image')
+  		console.log(obj)
+  		state.socket.send(obj)*/
   	},
   	customerServiceSocketGetHistoryRecords({ commit }, obj) {
   		state.socket.send(JSON.stringify({

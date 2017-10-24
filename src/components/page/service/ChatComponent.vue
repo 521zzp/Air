@@ -11,11 +11,14 @@
 		</div>
 		<div class="more-operate">
 			<div class="album">
-				<input type="file" name="ss" id="ss" value="" @change="imgSelected" />
-				<label for="ss">从相册选择图片</label>
+				<input type="file" name="ss" id="ss" value="" @change="imgSelected" style="display: none;"/>
+				<label for="ss" class="album">
+					<img src="../../../assets/customerServer/album.png"/>
+					<span>从相册选取图片</span>
+				</label>
 			</div>
 			<div class="camera">
-				
+				<img src="../../../assets/customerServer/camera.png"/>
 				<span>使用相机拍照</span>
 			</div>
 		</div>
@@ -49,19 +52,12 @@ export default {
 			
 		},
 		imgSelected (e) {
+			const vm = this
 			console.log(e)
 			console.log(e.target)
 			console.log(e.target.files[0])
 			const file = e.target.files[0]
-			const reader = new FileReader()
-			reader.readAsArrayBuffer(file);
-			reader.onload = function loaded(e) {
-				console.log(12)
-				var binaryString  = e.target.result
-				console.log(binaryString)
-			}
-			
-			
+			this.$emit('uploadImage', file)			
 		}
 	}
 }
@@ -73,10 +69,16 @@ export default {
 	margin-right: 0.24rem;
 	margin-top: 0.4rem;
 }
+.album>span, .camera>span{
+	display: block;
+	text-align: center;
+}
+.album>img, .camera>img{
+	width: 100%;
+}
 .album, .camera{
 	width: 2.666666rem;
 	height: 2.666666rem;
-	background-color: greenyellow;
 }
 .operate{
 	width: 0.8rem;
@@ -95,6 +97,7 @@ export default {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+	transition: all .3s ease;
 }
 .chat-component-wrap.operate-show{
 	height: 6.4rem;

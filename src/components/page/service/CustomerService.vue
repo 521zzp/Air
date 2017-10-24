@@ -12,45 +12,52 @@
 				<a  href="tel:4000082623">拨打客服电话>></a>
 			</div>
 		</div>
-		<div class="chat-content" :class=" {'chat-content-busy': busy }" ref="chatContent">
+		<div class="chat-content" :class=" {'chat-content-busy': busy }" :style="chatContentHeight" ref="chatContent">
 			<div v-if="more" class="get-more-wrap">
 				<span class="get-more" @click="getHistoryRecords">加载更多</span>
 			</div>
 			<div v-for="item,index in records" :key="index" :class="recordItemClass(item.sender)">
-				<!--<mu-avatar v-if="item.sender === 1" class="face" 
-					:src="item.userImg"
-					 color="deepOrange300" backgroundColor="purple500">
-					{{ item.userImg ? '' : item.userNickName[0] }}
-				</mu-avatar>-->
 				<img  v-if="item.sender === 1" class="face" src="../../../assets/customerServer/customer.png"/>
 				<img  v-else class="face" src="../../../assets/customerServer/servicer.png"/>
 				<div class="content-wrap clearfix">
 					<span class="time">{{timeFormat(item.time)}}</span>
-					<span class="content">{{item.content}}</span>
+					<span v-if="item.type === 1" class="content">{{item.content}}</span>
+					<div  v-else-if="item.type === 2" class="content">
+						<img @dblclick="imageShowDetails(item.content)" :src="item.content" class="content-image" style="max-width: 100%;display: block;border-radius:;"  />
+					</div>
 				</div>
 			</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-			<!--<div class="customer">
-				<mu-avatar class="face"  color="deepOrange300" backgroundColor="purple500">MM</mu-avatar>
-				<div class="content-wrap clearfix">
-					<span class="time fl">10:21</span>
-					<span class="content">asafasfaf</span>
-				</div>
-			</div>-->
 		</div>
-		<ChatComponent  @send="textSend" :operateShow="operateShow" @operateSwitch="operateSwitch"/>
+		<ChatComponent  
+			@send="textSend" 
+			:operateShow="operateShow" 
+			@operateSwitch="operateSwitch"
+			@uploadImage="imageSend"
+			/>
+		<div v-transfer-dom @click="imgDialogShow=false">
+	      <x-dialog v-model="imgDialogShow" >
+	          <img :src="imgDoalogImage" style="width:100%;display: block;margin: 0 auto;">
+	      </x-dialog>
+	    </div>
 	</div>
 </template>
 
 <script>
 import ChatComponent from '@/components/page/service/ChatComponent'
+import { XDialog, TransferDomDirective as TransferDom } from 'vux'
 
 export default {
+	directives: {
+	    TransferDom
+	  },
 	data () {
 		return {
 			msg: '呵呵哒！',
 			account: '',
 			busy: false,
 			operateShow: false,
+			imgDialogShow: false,
+			imgDoalogImage: '',
 		}
 	},
 	created () {
@@ -75,6 +82,14 @@ export default {
 		},
 		more () {
 			return this.$store.state.customerService.more
+		},
+		chatContentHeight () {
+			let busy = this.busy ? 1.6 : 0
+			let operate = this.operateShow ? 6.4 : 1.6
+			let decrease = busy + operate
+			return {
+				height: 'calc(100vh - '+ decrease +'rem)'
+			}
 		}
 	},
 	watch: {
@@ -86,7 +101,6 @@ export default {
 			}
 		},
 		scroll () {
-			console.log(this.scrollBehavior)
 			const vm = this
 			setTimeout(function () {
 				switch (vm.scrollBehavior){
@@ -96,8 +110,6 @@ export default {
 					vm.$refs.chatContent.scrollTop = 0
 						break;
 					case 'bottom':
-						console.log(vm.$refs.chatContent.scrollTop)
-						console.log(vm.$refs.chatContent.scrollHeight)
 						vm.$refs.chatContent.scrollTop = vm.$refs.chatContent.scrollHeight + 100
 						break;
 					default:
@@ -105,7 +117,6 @@ export default {
 				}
 				
 			},100)
-			
 		}
 	},
 	
@@ -116,6 +127,9 @@ export default {
 			} else {
 				this.$store.dispatch('customerServiceEnquire', { account: this.account, content: msg, type: 1 })
 			}
+		},
+		imageSend (img){
+			this.$store.dispatch('customerServiceSocketUploadImage', img)
 		},
 		busyClose () {
 			this.busy = false
@@ -141,17 +155,46 @@ export default {
 		},
 		operateSwitch (flag) {
 			console.log('operate swithc')
+			console.log('flag')
 			console.log(flag)
-			this.operateShow = flag
-			/*if (!this.socketOn) {
-				this.$store.dispatch('customerServiceEnquire', { account: this.account, content: '', type: 1 })
-			} else{
+			console.log('socketon')
+			console.log(this.socketOn)
+			if (!this.socketOn) {
+				if (flag) {
+					this.$store.dispatch('customerServiceEnquire', { account: this.account, content: '', type: 1 })
+				}
+			} else {
 				this.operateShow = flag
-			}*/
+				if (flag) {
+					const vm = this
+					setTimeout(function () {
+						switch (vm.scrollBehavior){
+							case 'stable':
+								break;
+							case 'top':
+							vm.$refs.chatContent.scrollTop = 0
+								break;
+							case 'bottom':
+								vm.$refs.chatContent.scrollTop = vm.$refs.chatContent.scrollHeight 
+								break;
+							default:
+								break;
+						}
+					}, 280)
+				}
+			}
+			
+		},
+		imageShowDetails (path){
+			console.log('img path')
+			console.log(path)
+			this.imgDoalogImage = path
+			this.imgDialogShow = true
 		}
 	},
 	components: {
-		ChatComponent
+		ChatComponent,
+		XDialog
 	}
 }
 </script>
@@ -159,7 +202,11 @@ export default {
 
 <style scoped="scoped">
 
-
+.content-image{
+	max-width: 100%;
+	display: block;
+	border-radius: 0.266666rem;
+}
 .get-more-wrap{
 	text-align: center;
 	padding: 0.133333rem 0;
@@ -197,15 +244,12 @@ export default {
 	overflow: hidden;
 }
 .chat-content{
-	height: calc(100vh - 1.6rem);
 	overflow: auto;
 	display: block;
 	padding-top: 0.133333rem;
 	transition: all .3s; 
 }
-.chat-content-busy{
-	height: calc(100vh - 3.733333rem);
-}
+
 .clerk,.customer{
 	padding: 0 0.453333rem;
 	margin-bottom: 0.266666rem;
