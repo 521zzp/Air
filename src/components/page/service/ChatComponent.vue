@@ -11,27 +11,29 @@
 		</div>
 		<div class="more-operate">
 			<div class="album">
-				<input type="file" name="ss" id="ss" value="" @change="imgSelected" style="display: none;"/>
+				<input type="file" name="ss" id="ss"accept="image/png,image/jgpe,image/jpg,image/gif" @change="imgSelected" style="display: none;"/>
 				<label for="ss" class="album">
 					<img src="../../../assets/customerServer/album.png"/>
-					<span>从相册选取图片</span>
+					<span>发送图片</span>
 				</label>
 			</div>
-			<div class="camera">
+			<!--<div class="camera">
 				<img src="../../../assets/customerServer/camera.png"/>
 				<span>使用相机拍照</span>
-			</div>
+			</div>-->
 		</div>
+		<!--<Camera />-->
 	</div>
 </template>
 
 <script>
+//import Camera from './Camera'
 
 export default {
 	props: [ 'operateShow' ],
 	data () {
 		return {
-			msg: '呵呵哒！',
+			msg: '',
 			
 		}
 	},
@@ -59,6 +61,9 @@ export default {
 			const file = e.target.files[0]
 			this.$emit('uploadImage', file)			
 		}
+	},
+	components: {
+		//Camera
 	}
 }
 </script>

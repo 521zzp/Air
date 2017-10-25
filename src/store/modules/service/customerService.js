@@ -36,7 +36,10 @@ const actions = {
 		    console.log('已断开连接')
 		    commit(types.CUSTOMER_SERVICE_CONNECT_STATUS, false)
 		};
-		
+		state.socket.onclose = function(){
+		    console.log('已断开连接')
+		    commit(types.CUSTOMER_SERVICE_CONNECT_STATUS, false)
+		};
 		state.socket.onmessage = function (evt) { 
             var data = JSON.parse(evt.data);
             console.log("数据已接收...");

@@ -21,7 +21,7 @@
 				<img  v-else class="face" src="../../../assets/customerServer/servicer.png"/>
 				<div class="content-wrap clearfix">
 					<span class="time">{{timeFormat(item.time)}}</span>
-					<span v-if="item.type === 1" class="content">{{item.content}}</span>
+					<span v-if="item.type === 1" class="content chat-content-text">{{item.content}}</span>
 					<div  v-else-if="item.type === 2" class="content">
 						<img @dblclick="imageShowDetails(item.content)" :src="item.content" class="content-image" style="max-width: 100%;display: block;border-radius:;"  />
 					</div>
@@ -52,7 +52,7 @@ export default {
 	  },
 	data () {
 		return {
-			msg: '呵呵哒！',
+			msg: '',
 			account: '',
 			busy: false,
 			operateShow: false,
@@ -143,7 +143,7 @@ export default {
 		timeFormat (time) {
 			const length = new Date().getTime() - time
 			if (length <  60 * 1000 ) {
-				return Math.ceil(length / (  1000 )) + '秒前'
+				return Math.ceil(length / (  1000 )) + 1 + '秒前'
 			} else if (length < 1000 * 60 * 60 * 24 ) {
 				return new Date(time).Format('HH:mm')
 			} else {
@@ -154,6 +154,7 @@ export default {
 			this.$store.dispatch('customerServiceSocketGetHistoryRecords')
 		},
 		operateSwitch (flag) {
+			this.operateShow = flag
 			console.log('operate swithc')
 			console.log('flag')
 			console.log(flag)
@@ -202,6 +203,10 @@ export default {
 
 <style scoped="scoped">
 
+.chat-content-text{
+	word-break: break-all;
+	word-wrap: break-word;
+}
 .content-image{
 	max-width: 100%;
 	display: block;
