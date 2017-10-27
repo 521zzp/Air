@@ -154,7 +154,6 @@ export default {
 			this.$store.dispatch('customerServiceSocketGetHistoryRecords')
 		},
 		operateSwitch (flag) {
-			this.operateShow = flag
 			console.log('operate swithc')
 			console.log('flag')
 			console.log(flag)
@@ -242,6 +241,7 @@ export default {
 	height: 2.133333rem;
 	background-color: #fff8f5;
 	transition: all .3s; 
+	z-index: 1;
 }
 .customer-service-container{
 	background-color: #efeff4;

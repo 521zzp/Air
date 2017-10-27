@@ -28,6 +28,7 @@
 
 <script>
 //import Camera from './Camera'
+import { notice } from '@/tool/talk'
 
 export default {
 	props: [ 'operateShow' ],
@@ -54,6 +55,7 @@ export default {
 			
 		},
 		imgSelected (e) {
+			notice('图片选择')
 			const vm = this
 			console.log(e)
 			console.log(e.target)

@@ -1,6 +1,7 @@
 import * as types from '../../mutation-types'
 import { CUSTOMER_SERVICE_WEBSOCKET, CUSTOMER_SERVICE_ENQUIRE, CUSTOMER_SERVICE_UPLOAD_IMAGE } from '@/config/url'
 import { postModelTwo, analy } from '@/tool/net'
+import { notice } from '@/tool/talk'
 
 const state = {
 	socket: null,
@@ -60,15 +61,20 @@ const actions = {
   		form.append('userId', state.userId)
   		form.append('serviceId', state.serviceId)
   		form.append('sender', 1)
-  		
-  		
-  		fetch(CUSTOMER_SERVICE_UPLOAD_IMAGE, {
-  			method: 'post',
-  			credentials: 'include',
-  			body: form
-  		}).then(analy).then(
-  			data => console.log(data)
-  		)
+  		notice('准准备发送图片')
+  		notice(obj)
+  		try {
+  			fetch(CUSTOMER_SERVICE_UPLOAD_IMAGE, {
+	  			method: 'post',
+	  			credentials: 'include',
+	  			body: form
+	  		}).then(analy).then(
+	  			data => notice('发送图片成功')//console.log(data)
+	  		)
+  		} catch (e) {
+  			alert(2)
+  			notice(e)
+  		}
   		
   		
   		
@@ -119,7 +125,16 @@ const mutations = {
 		}
     },
     [types.CUSTOMER_SERVICE_CONNECT_STATUS] (state, obj) {
-    	state.socketOn = true
+    	state.socketOn = obj
+    	if (!obj) {
+    		try {
+    			if (state.socket) { 
+    				state.socket.close()
+    			}
+    		} finally {
+    			state.socket = undefined
+    		}
+    	}
     }
 }
 

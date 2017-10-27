@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
     	"/mapi": {
-	      "target": "http://192.168.3.8:8080/p2p_zgjf",
+	      "target": "http://192.168.3.8:8090",
 	      "changeOrigin": true,
 	      "pathRewrite": { "^/mapi" : "/mapi" }
 	    }

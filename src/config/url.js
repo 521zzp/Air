@@ -18,9 +18,10 @@ export const NEWS_ITEM = BASEURL + '/news' //获取新闻详情信息
 export const ACTIVITY_SHOW_IMG = BASEURL + '/getActivityImg.do' //普通展示新闻展示图片
 
 //服务
-export const CUSTOMER_SERVICE_ENQUIRE = BASEURL + '/websocket/test.do' //询问是否可以连接
-export const CUSTOMER_SERVICE_WEBSOCKET = 'ws://192.168.3.8:8080/p2p_zgjf/websocket' //socket连接地址
-export const CUSTOMER_SERVICE_UPLOAD_IMAGE = BASEURL + '/websocket/uploadImage.do' //上传图片
+export const CUSTOMER_SERVICE_ENQUIRE = BASEURL + '/websocket/test' //询问是否可以连接
+export const CUSTOMER_SERVICE_WEBSOCKET = 'ws://192.168.3.8:8090/websocket' //socket连接地址
+//export const CUSTOMER_SERVICE_WEBSOCKET = 'ws://www.zhangguijf.com:8090/websocket' //socket连接地址
+export const CUSTOMER_SERVICE_UPLOAD_IMAGE = BASEURL + '/websocket/uploadImage' //上传图片
 
 
 //固定不变部分
