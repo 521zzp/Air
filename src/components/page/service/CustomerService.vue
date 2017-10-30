@@ -23,7 +23,7 @@
 					<span class="time">{{timeFormat(item.time)}}</span>
 					<span v-if="item.type === 1" class="content chat-content-text">{{item.content}}</span>
 					<div  v-else-if="item.type === 2" class="content">
-						<img @dblclick="imageShowDetails(item.content)" :src="item.content" class="content-image" style="max-width: 100%;display: block;border-radius:;"  />
+						<img @click="imageShowDetails(item.content)" :src="item.content" class="content-image" style="max-width: 100%;display: block;border-radius:;"  />
 					</div>
 				</div>
 			</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -35,8 +35,8 @@
 			@uploadImage="imageSend"
 			/>
 		<div v-transfer-dom @click="imgDialogShow=false">
-	      <x-dialog v-model="imgDialogShow" >
-	          <img :src="imgDoalogImage" style="width:100%;display: block;margin: 0 auto;">
+	      <x-dialog v-model="imgDialogShow" class="only-customer-image-wrap" >
+	          <img :src="imgDoalogImage" style="max-width:100%;display: block;margin: 0 auto;">
 	      </x-dialog>
 	    </div>
 	</div>
@@ -199,7 +199,14 @@ export default {
 }
 </script>
 
+<style type="text/css">
 
+.only-customer-image-wrap .weui-dialog{
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+</style>
 <style scoped="scoped">
 
 .chat-content-text{

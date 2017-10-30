@@ -72,15 +72,8 @@ const actions = {
 	  			data => notice('发送图片成功')//console.log(data)
 	  		)
   		} catch (e) {
-  			alert(2)
   			notice(e)
   		}
-  		
-  		
-  		
-  		/*console.log('socket send image')
-  		console.log(obj)
-  		state.socket.send(obj)*/
   	},
   	customerServiceSocketGetHistoryRecords({ commit }, obj) {
   		state.socket.send(JSON.stringify({
