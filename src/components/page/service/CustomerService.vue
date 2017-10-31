@@ -39,12 +39,17 @@
 	          <img :src="imgDoalogImage" style="max-width:100%;display: block;margin: 0 auto;">
 	      </x-dialog>
 	    </div>
+	    
+	    <div v-transfer-dom>
+	      <alert v-model="welcome"  title="欢迎" content="您好，欢迎来到掌柜金服人工客服，很高兴为您服务！人工客服在线时间9：00-18：30"></alert>
+	    </div>
+	    
 	</div>
 </template>
 
 <script>
 import ChatComponent from '@/components/page/service/ChatComponent'
-import { XDialog, TransferDomDirective as TransferDom } from 'vux'
+import { XDialog, Alert, TransferDomDirective as TransferDom } from 'vux'
 
 export default {
 	directives: {
@@ -54,6 +59,7 @@ export default {
 		return {
 			msg: '',
 			account: '',
+			welcome: false,
 			busy: false,
 			operateShow: false,
 			imgDialogShow: false,
@@ -63,6 +69,11 @@ export default {
 	created () {
 		const account = this.$route.params.account
 		this.account = account
+	},
+	mounted () {
+		this.welcome = true
+		const vm = this
+		setTimeout(()=>vm.welcome=false,3000)
 	},
 	computed: {
 		enquireFlag () {
@@ -194,6 +205,7 @@ export default {
 	},
 	components: {
 		ChatComponent,
+		Alert,
 		XDialog
 	}
 }

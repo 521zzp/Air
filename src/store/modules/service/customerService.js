@@ -48,9 +48,6 @@ const actions = {
             console.log(evt.data);
             commit(types.CUSTOMER_SERVER_RECEIVE, data)
 	      };
-		
-		
-		
   	},
   	customerServiceSocketSend({ commit }, obj) {
   		state.socket.send(JSON.stringify({ ...obj, socketType: 'COMMON_SEND', userId: state.userId, serviceId: state.serviceId, type: 1 }))
