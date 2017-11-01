@@ -40,9 +40,9 @@
 	      </x-dialog>
 	    </div>
 	    
-	    <div v-transfer-dom>
+	    <!--<div v-transfer-dom>
 	      <alert v-model="welcome"  title="欢迎" content="您好，欢迎来到掌柜金服人工客服，很高兴为您服务！人工客服在线时间9：00-18：30"></alert>
-	    </div>
+	    </div>-->
 	    
 	</div>
 </template>
@@ -71,9 +71,11 @@ export default {
 		this.account = account
 	},
 	mounted () {
-		this.welcome = true
+		/*this.welcome = true
 		const vm = this
-		setTimeout(()=>vm.welcome=false,3000)
+		setTimeout(()=>vm.welcome=false,3000)*/
+		
+		this.$store.dispatch('customerServiceEnquire', { account: this.account, content: '', type: 1 })
 	},
 	computed: {
 		enquireFlag () {
