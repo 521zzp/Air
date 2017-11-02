@@ -11,16 +11,19 @@
 		</div>
 		<div class="more-operate">
 			<div class="album">
-				<input type="file" name="ss" id="ss"accept="image/png,image/jgpe,image/jpg,image/gif" @change="imgSelected" style="display: none;"/>
+				<input type="file" name="ss" id="ss" accept="image/*" @change="imgSelected" style="display: none;"/>
 				<label for="ss" class="album">
 					<img src="../../../assets/customerServer/album.png"/>
 					<span>发送图片</span>
 				</label>
 			</div>
-			<!--<div class="camera">
-				<img src="../../../assets/customerServer/camera.png"/>
-				<span>使用相机拍照</span>
-			</div>-->
+			<div class="camera">
+				<input type="file" name="ss" id="camera" accept="image/*" capture="camera" @change="imgSelected" style="display: none;"/>
+				<label for="camera" class="album">
+					<img src="../../../assets/customerServer/camera.png"/>
+					<span>使用相机拍照</span>
+				</label>
+			</div>
 		</div>
 		<!--<Camera />-->
 	</div>
@@ -40,7 +43,6 @@ export default {
 	},
 	methods: {
 		send (){
-			console.log(5)
 			if (this.msg !== '') {
 				this.$emit('send', this.msg)
 			}
@@ -55,11 +57,7 @@ export default {
 			
 		},
 		imgSelected (e) {
-			notice('图片选择')
 			const vm = this
-			console.log(e)
-			console.log(e.target)
-			console.log(e.target.files[0])
 			const file = e.target.files[0]
 			this.$emit('uploadImage', file)			
 		}

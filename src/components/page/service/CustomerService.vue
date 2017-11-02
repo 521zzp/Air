@@ -36,7 +36,7 @@
 			/>
 		<div v-transfer-dom @click="imgDialogShow=false">
 	      <x-dialog v-model="imgDialogShow" class="only-customer-image-wrap" >
-	          <img :src="imgDoalogImage" style="max-width:100%;display: block;margin: 0 auto;">
+	          <img :src="imgDoalogImage" style="max-width:100%; max-height: 100vh; display: block;margin: 0 auto;">
 	      </x-dialog>
 	    </div>
 	    
@@ -97,7 +97,7 @@ export default {
 			return this.$store.state.customerService.more
 		},
 		chatContentHeight () {
-			let busy = this.busy ? 1.6 : 0
+			let busy = this.busy ? 2.133333 : 0
 			let operate = this.operateShow ? 6.4 : 1.6
 			let decrease = busy + operate
 			return {
@@ -109,6 +109,7 @@ export default {
 		enquireFlag () {
 			if (this.$store.state.customerService.connectable) {
 				this.$store.dispatch('customerServiceSocketConnect', { account: this.account })
+				this.busy = false
 			} else {
 				this.busy = true
 			}
@@ -257,8 +258,6 @@ export default {
 }
 .busy{
 	padding: 0.4rem 0.453333rem 0.266666rem 0.453333rem;
-	position: fixed;
-	top: 0;
 	height: 2.133333rem;
 	background-color: #fff8f5;
 	transition: all .3s; 

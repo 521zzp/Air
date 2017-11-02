@@ -58,18 +58,16 @@ const actions = {
   		form.append('userId', state.userId)
   		form.append('serviceId', state.serviceId)
   		form.append('sender', 1)
-  		notice('准准备发送图片')
-  		notice(obj)
   		try {
   			fetch(CUSTOMER_SERVICE_UPLOAD_IMAGE, {
 	  			method: 'post',
 	  			credentials: 'include',
 	  			body: form
 	  		}).then(analy).then(
-	  			data => notice('发送图片成功')//console.log(data)
+	  			//data => notice('发送图片成功')//console.log(data)
 	  		)
   		} catch (e) {
-  			notice(e)
+  			//notice(e)
   		}
   	},
   	customerServiceSocketGetHistoryRecords({ commit }, obj) {

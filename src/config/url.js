@@ -20,7 +20,7 @@ export const ACTIVITY_SHOW_IMG = BASEURL + '/getActivityImg' //普通展示新�
 //服务
 export const CUSTOMER_SERVICE_ENQUIRE = BASEURL + '/websocket/test' //询问是否可以连接
 //export const CUSTOMER_SERVICE_WEBSOCKET = 'ws://192.168.3.8:8090/websocket' //socket连接地址
-export const CUSTOMER_SERVICE_WEBSOCKET = 'ws://www.zhangguijf.com:8090/websocket' //socket连接地址
+export const CUSTOMER_SERVICE_WEBSOCKET = 'ws://www.shangnongtou.com:8090/websocket' //socket连接地址
 export const CUSTOMER_SERVICE_UPLOAD_IMAGE = BASEURL + '/websocket/uploadImage' //上传图片
 
 
