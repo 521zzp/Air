@@ -33,7 +33,7 @@ export default {
 				window.location = window.location + '?action=2'
 			} else{
 				callAppRouter('introduceVIP', null, function (err, res) {
-			})
+				})
 			}
 			
 		}

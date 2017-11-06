@@ -139,7 +139,12 @@ const TwoFestival = resolve => {
     resolve(require('@/components/page/activity/17-09/TwoFestival.vue'))
   })
 }
-
+//三重好礼
+const ThreeGifts = resolve => {
+  require.ensure(['@/components/page/activity/17-11/ThreeGifts.vue'], () => {
+    resolve(require('@/components/page/activity/17-11/ThreeGifts.vue'))
+  })
+}
 
 import store from '@/store'
 
@@ -322,6 +327,14 @@ const router = new Router({
       path: '/17-09/twoFestival',
       name: 'TwoFestival',
       component: TwoFestival,
+      meta: {
+      	weight: 1
+      }
+		},
+		{
+      path: '/17-11/threeGifts',
+      name: 'ThreeGifts',
+      component: ThreeGifts,
       meta: {
       	weight: 1
       }

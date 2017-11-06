@@ -17,14 +17,14 @@ const state = {
 		repayment: '',
 	},
 	report: {
-		businessLicense: false,
-		creditInstitution: false,
-		openingPermit: false,
-		articlesOfAssociation: false,
-		corporation: false,
-		creditReport: false,
-		financeReport: false,
-		auditReport: false,
+		businessLicense: true,
+		creditInstitution: true,
+		openingPermit: true,
+		articlesOfAssociation: true,
+		corporation: true,
+		creditReport: true,
+		financeReport: true,
+		auditReport: true,
 	}
 }
 const actions = {
@@ -42,7 +42,7 @@ const mutations = {
 	[types.PRODUCT_INFO] (state, { project, debtor, report, isShow }) {
 		state.project = project ? project : ''
 		state.debtor = debtor ? debtor : ''
-		state.report = report ? report : ''
+		state.report = report ? report : state.report
 		state.isShow = isShow ? isShow : ''
     }
 }

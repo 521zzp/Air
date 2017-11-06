@@ -50,6 +50,7 @@
 <script>
 import ChatComponent from '@/components/page/service/ChatComponent'
 import { XDialog, Alert, TransferDomDirective as TransferDom } from 'vux'
+import { notice } from '@/tool/talk'
 
 export default {
 	directives: {
@@ -112,6 +113,7 @@ export default {
 				this.busy = false
 			} else {
 				this.busy = true
+				notice('当前客服离线中，暂时无法回复您！')
 			}
 		},
 		scroll () {
