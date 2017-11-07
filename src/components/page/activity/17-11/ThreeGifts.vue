@@ -11,15 +11,12 @@
 				<img class="word animated bounceIn" style="animation-delay: 1.4s;" src="../../../../assets/activity/17-11/three-gifts/four.png"/>
 			</div>
 		</div>
-		
 		<mu-raised-button  class="invite-btn" @click="invite" label="立即邀请"/>
-		<mu-raised-button v-if="show" class="look-btn btn" @click="lookOver"/>
 	</div>
 </template>
 
 <script>
 import { callAppRouter } from '@/tool/bridge'
-import { os } from '@/tool/tool'
 
 export default {
 	data () {
@@ -28,25 +25,9 @@ export default {
 	},
 	methods: {
 		invite () {
-			if (os().isAndroid) {
-				this.$router.push('/register')
-			} else{
-				callAppRouter('invite', null, function (err, res) {})
-			}
+			callAppRouter('invite', null, function (err, res) {})
 			
 		},
-		lookOver() {
-			callAppRouter('lookOver', null, function (err, res) {})
-		}
-	},
-	computed: {
-		show () {
-			if (os().isAndroid && window.bridge) {
-				return true
-			} else{
-				return false
-			}
-		}
 	},
 }
 </script>
@@ -69,8 +50,8 @@ export default {
 }
 .three-gifts-container{
 	overflow: hidden;
-	height: 48.293333rem;
-	background-image: url('@{image}/activity/17-11/three-gifts/bg.png');
+	height: 57.066666rem;
+	background-image: url('@{image}/activity/17-11/three-gifts/bg01.png');
 	background-size: contain;
 	position: relative;
 	background-repeat: no-repeat;
