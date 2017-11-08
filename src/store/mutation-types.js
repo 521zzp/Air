@@ -8,6 +8,9 @@ export const REGISTER_SEND_CODE = 'REGISTER_SEND_CODE' //注册发送验证码
 //一般通用部分
 export const NEWS_ITEM = 'NEWS_ITEM' //新闻详情信息
 export const ACTIVITY_SHOW_IMG = 'ACTIVITY_SHOW_IMG' //普通展示新闻展示图片
+export const INVITE_RED_PACKET_INFO = 'INVITE_RED_PACKET_INFO' //邀请记录统计
+export const INVITE_RED_PACKET_TOTAL = 'INVITE_RED_PACKET_TOTAL' //邀请总人数
+export const INVITE_RED_PACKET_LIST = 'INVITE_RED_PACKET_LIST' //邀请人数集合
 
 
 //固定不变部分

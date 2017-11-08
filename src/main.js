@@ -17,13 +17,13 @@ Vue.use(VueAwesomeSwiper)
 import MuseUI from 'muse-ui'
 Vue.use(MuseUI)
 
-import { Button, Cell, DatetimePicker  } from 'mint-ui'
+import { Button, Cell, DatetimePicker, Loadmore  } from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
 Vue.component('mt-button', Button)
 Vue.component('mt-cell', Cell)
 Vue.component(DatetimePicker.name, DatetimePicker)
-
+Vue.component(Loadmore.name, Loadmore)
 
 
 dateFormat(); //给日期添加格式化方法

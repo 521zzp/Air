@@ -34,6 +34,16 @@ const News = resolve => {
     resolve(require('@/components/page/general/News.vue'))
   })
 }
+const InviteRedPacket = resolve => {
+  require.ensure(['@/components/page/general/InviteRedPacket.vue'], () => {
+    resolve(require('@/components/page/general/InviteRedPacket.vue'))
+  })
+}
+const InviteReceiveRecord = resolve => {
+  require.ensure(['@/components/page/general/InviteReceiveRecord.vue'], () => {
+    resolve(require('@/components/page/general/InviteReceiveRecord.vue'))
+  })
+}
 /*
  * 服务功能
  */
@@ -187,6 +197,22 @@ const router = new Router({
       path: '/app',
       name: 'AppDownload',
       component: AppDownload,
+      meta: {
+      	weight: 1
+      }
+		},
+		{
+      path: '/inviteRedPacket/:account',
+      name: 'InviteRedPacket',
+      component: InviteRedPacket,
+      meta: {
+      	weight: 2
+      }
+		},
+		{
+      path: '/inviteReceiveRecord/:account',
+      name: 'InviteReceiveRecord',
+      component: InviteReceiveRecord,
       meta: {
       	weight: 1
       }

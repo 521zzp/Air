@@ -16,6 +16,10 @@ export const REGISTER = BASEURL + '/regist' //注册接口
 //其他通用部分
 export const NEWS_ITEM = BASEURL + '/news' //获取新闻详情信息
 export const ACTIVITY_SHOW_IMG = BASEURL + '/getActivityImg' //普通展示新闻展示图片
+export const INVITE_RED_PACKET_INFO = BASEURL + '/invite/red/packet/info' //邀请记录统计
+export const INVITE_RED_PACKET_TOTAL = BASEURL + '/invite/red/packet/total' //邀请总人数
+export const INVITE_RED_PACKET_LIST = BASEURL + '/invite/red/packet/list' //邀请人数集合
+
 
 //服务
 export const CUSTOMER_SERVICE_ENQUIRE = BASEURL + '/websocket/test' //询问是否可以连接
