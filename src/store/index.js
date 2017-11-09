@@ -8,6 +8,8 @@ import activity from './modules/activity'
 import productInfo from './modules/stationary/productInfo'
 import loanAgreement from './modules/stationary/loanAgreement'
 import customerService from './modules/service/customerService' //客服
+import promoteRegister from './modules/general/promoteRegister' //推广注册
+
 
 Vue.use(Vuex)
 let token = '';
@@ -66,6 +68,7 @@ const store = new Vuex.Store({
 		productInfo,
 		loanAgreement,
 		customerService,
+		promoteRegister,
 	}
 })
 

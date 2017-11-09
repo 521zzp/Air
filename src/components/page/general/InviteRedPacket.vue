@@ -1,6 +1,7 @@
 <template>
 	<div class="invite-red-packet-container">
-		<section class="section">
+		<div style="text-align: center;">功能开发中……</div>
+		<!--<section class="section">
 			<div class="title border-bottom">
 				<span class="line"></span>
 				<span class="title-text">30元红包</span>
@@ -85,7 +86,7 @@
 				<p>3.若您当前的理财金额不小于1000元，点击立即领取即可领取红包，领取后红包金额转入余额。</p>
 				<p>4.以上邀请好友仅限您本人邀请的第一级好友，二三级好友不包含在内，本活动最终解释权掌柜金服所有。</p>
 			</div>
-		</section>
+		</section>-->
 	</div>
 </template>
 

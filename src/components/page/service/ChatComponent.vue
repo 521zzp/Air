@@ -18,7 +18,7 @@
 				</label>
 			</div>
 			<div class="camera">
-				<input type="file" name="ss" id="camera" accept="image/*" capture="camera" @change="imgSelected" style="display: none;"/>
+		 		<input type="file" name="ss" id="camera" accept="image/*" capture="camera" @change="imgSelected" style="display: none;"/>
 				<label for="camera" class="album">
 					<img src="../../../assets/customerServer/camera.png"/>
 					<span>使用相机拍照</span>
@@ -38,7 +38,6 @@ export default {
 	data () {
 		return {
 			msg: '',
-			
 		}
 	},
 	methods: {

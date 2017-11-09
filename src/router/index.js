@@ -44,6 +44,16 @@ const InviteReceiveRecord = resolve => {
     resolve(require('@/components/page/general/InviteReceiveRecord.vue'))
   })
 }
+const RegisterOne = resolve => {
+  require.ensure(['@/components/page/general/register/RegisterOne.vue'], () => {
+    resolve(require('@/components/page/general/register/RegisterOne.vue'))
+  })
+}
+const RegisterTwo = resolve => {
+  require.ensure(['@/components/page/general/register/RegisterTwo.vue'], () => {
+    resolve(require('@/components/page/general/register/RegisterTwo.vue'))
+  })
+}
 /*
  * 服务功能
  */
@@ -217,6 +227,22 @@ const router = new Router({
       	weight: 1
       }
 		},
+		{
+      path: '/promote-register/:type/:account',
+      name: 'RegisterOne',
+      component: RegisterOne,
+      meta: {
+      	weight: 3
+      }
+		},
+		{
+      path: '/promote-register-more/:type/:account',
+      name: 'RegisterTwo',
+      component: RegisterTwo,
+      meta: {
+      	weight: 2
+      }
+  },
 		/*
 		 * 服务
 		 */

@@ -1,10 +1,11 @@
 <template>
 	<div class="invite-record-container">
 		<mt-loadmore :bottom-method="loadBottom"
-			:bottom-status.sync="topStatus"
+			:bottom-status.sync="bottomStatus"
+			@bottom-status-change="handleBottomChange"
 			:bottom-all-loaded="allLoaded" ref="loadmore">
 			
-			<span class="notice">此页面仅记录接受您的邀请并完成实名认证的用户</span>
+			<span class="notice ">此页面仅记录接受您的邀请并完成实名认证的用户</span>
 			<div class="records-title">
 				<span class=" account">注册用户</span>
 				<span class="center regist-time">注册时间</span>
@@ -17,9 +18,9 @@
 					<span class="status fr">已投资</span>
 				</li>
 			</ul>
-			<div slot="bottom" class="mint-loadmore-top">
-			    <span v-show="topStatus !== 'loading'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
-			    <span v-show="topStatus === 'loading'">Loading...</span>
+			<div slot="bottom" class="mint-loadmore-bottom">
+			    <span v-show="bottomStatus !== 'loading'" class="un-loading"  :class="{ rotate: bottomStatus === 'drop' }">↓</span>
+			    <span v-show="bottomStatus === 'loading'">Loading...</span>
 			</div>
 		</mt-loadmore>
 
@@ -28,24 +29,38 @@
 
 <script>
 	import { notice } from '@/tool/talk'
-	
+	/*:class="{ rotate: bottomStatus === 'drop' }"*/
 	export default {
 		data () {
 			return {
 				allLoaded: false,
-				topStatus: 'loading',
-				list: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+				bottomStatus: 'loading',
+				list: [1, 2, 3, 4, 5,]
 			}
 		},
 		methods: {
 			loadBottom() {
-				this.$refs.loadmore.onBottomLoaded();
-			}
+				notice('触发请求数据')
+				//this.$refs.loadmore.onBottomLoaded();
+			},
+			handleBottomChange(status) {
+				notice(status)
+				
+		        this.bottomStatus = status;
+		    },
 		},
 	}
 </script>
 
 <style scoped="scoped" lang="less">
+.un-loading{
+	transform: rotateZ(0deg);
+	transition: all .5s;
+}
+.un-loading.rotate{
+	transform: rotateZ(180deg);
+	display: block;
+}
 .invest{
 	color: #666666;
 }
