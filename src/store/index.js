@@ -9,7 +9,7 @@ import productInfo from './modules/stationary/productInfo'
 import loanAgreement from './modules/stationary/loanAgreement'
 import customerService from './modules/service/customerService' //客服
 import promoteRegister from './modules/general/promoteRegister' //推广注册
-
+import merchantRegister from './modules/general/merchantRegister' //商户注册
 
 Vue.use(Vuex)
 let token = '';
@@ -69,6 +69,7 @@ const store = new Vuex.Store({
 		loanAgreement,
 		customerService,
 		promoteRegister,
+		merchantRegister,
 	}
 })
 

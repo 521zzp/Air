@@ -3,7 +3,7 @@
 		<div class="item">
 			<div class="title">
 				<span class="line"></span>
-				<span>{{ imgOneTitle }}</span>
+				<span>负责人手持身份证照片（1张）</span>
 			</div>
 			<div class="content">
 				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" capture="camera"/>
@@ -17,7 +17,7 @@
 		<div class="item">
 			<div class="title">
 				<span class="line"></span>
-				<span>{{ imgTwoTitle }}</span>
+				<span>负责人与渠道人员合照（1张）</span>
 			</div>
 			<div class="content">
 				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" capture="camera"/>
@@ -31,7 +31,7 @@
 		<div class="item">
 			<div class="title">
 				<span class="line"></span>
-				<span>{{ imgThreeTitle }}</span>
+				<span>商户营业执照（1张）</span>
 			</div>
 			<div class="content">
 				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" capture="camera"/>
@@ -41,6 +41,20 @@
 				</svg>
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(three)"/>
+		</div>
+		<div class="item">
+			<div class="title">
+				<span class="line"></span>
+				<span>与我方签订的协议照片</span>
+			</div>
+			<div class="content">
+				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(four)" accept="image/*" capture="camera"/>
+				<img class="preview" :src="four.preview" alt="" />
+				<svg v-if="four.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(four)">
+				    <use xlink:href="#icon-trash"></use>
+				</svg>
+			</div>
+			<mu-raised-button label="选择图片" class="upload" @click="toSelect(four)"/>
 		</div>
 		<div class="btn-group clearfix">
 			<mu-raised-button label="上一步" class="prev btn-item fl" @click="back"/>
@@ -67,20 +81,15 @@ export default {
 				inp: 'picThree',
 				preview: '',
 			},
+			four: {
+				inp: 'picFour',
+				preview: '',
+			},
 		}
 	},
 	computed: {
 		type () {
 			return this.$store.state.promoteRegister.type
-		},
-		imgOneTitle () {
-			return this.type === 2 ? '与饭店招牌的合影（1张）' : '您正面手持身份证的照片（1张）'
-		},
-		imgTwoTitle () {
-			return this.type === 2 ? '消费的小票照片（1张）' : '正面手持10元人民币照片（1张）'
-		},
-		imgThreeTitle () {
-			return this.type === 2 ? '拍摄的饭店照片（1张）' : '与上级用户的合照（1张）'
 		},
 	},
 	methods: {
@@ -99,14 +108,17 @@ export default {
 			if (!this.one.preview) {
 				notice('请选择手持身份证的照片')
 			} else if (!this.two.preview){
-				notice('请选择正面手持10元人民币照片')
+				notice('请选择与渠道人员的合照')
 			} else if (!this.three.preview) {
-				notice('请选择与推荐人的合照')
+				notice('商户营业执照照片')
+			} else if (!this.four.preview) {
+				notice('请选择与平台签订协议的照片')
 			} else{
 				const imgOne = this.$refs[this.one.inp].files[0] 
 				const imgTwo = this.$refs[this.two.inp].files[0]
 				const imgThree = this.$refs[this.three.inp].files[0]
-				this.$store.dispatch('promoteImageUpload', { imgOne, imgTwo, imgThree })
+				const imgFour = this.$refs[this.four.inp].files[0]
+				this.$store.dispatch('promoteImageUpload', { imgOne, imgTwo, imgThree, imgFour })
 			}
 		},
 		back () {

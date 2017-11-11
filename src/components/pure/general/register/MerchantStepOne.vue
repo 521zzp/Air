@@ -20,6 +20,31 @@
 				<input class="value" v-model="form.addr.value" placeholder="请补充详细地址"/>
 			</div>
 		</div>
+		<div class="group group-two">
+			<div class="item border-bottom">
+				<span class="name">负责人手机</span>
+				<input class="value" v-model="form.fzrPhone.value" placeholder="请输入商户负责人手机号"/>
+			</div>
+			<div class="item">
+				<span class="name" style="color: #999999;">商户信息</span>
+			</div>
+			<div class="item" >
+				<span class="name" style="vertical-align: top;" >日人流量</span>
+				<mu-select-field v-model="form.customers.value" style="width: 6.96rem;vertical-align: bottom;" >
+				    <mu-menu-item value="1" title="1~100人"/>
+				    <mu-menu-item value="2" title="100~500人"/>
+				    <mu-menu-item value="3" title="500人以上"/>
+				</mu-select-field>
+			</div>
+			<div class="item">
+				<span class="name" style="vertical-align: top;">日营业额</span>
+				<mu-select-field v-model="form.customers.value" style="width: 6.96rem;vertical-align: bottom;" >
+				    <mu-menu-item value="1" title="1~4000元"/>
+				    <mu-menu-item value="2" title="4001~10000元"/>
+				    <mu-menu-item value="3" title="10000元以上"/>
+				</mu-select-field>
+			</div>
+		</div>
 		<mu-raised-button label="下一步" class="next"  @click="formSubmit(form, rules)" />
 	</div>
 </template>
@@ -43,7 +68,20 @@ export default {
 				addr: {
 					value: '',
 					bool: false,
+				},
+				fzrPhone: {
+					value: '',
+					bool: false,
+				},
+				customers:{
+					value: '',
+					bool: false,
+				},
+				turnover: {
+					value: '',
+					bool: false,
 				}
+				
 			},
 			rules: {
 				name: [
@@ -56,12 +94,21 @@ export default {
 				addr: [
 					{ check: checkNotNull, message: '详细地址不能为空' },
 				],
+				fzrPhone: [
+					{ check: checkNotNull, message: '商户负责人手机号不能为空' },
+				],
+				customers: [
+					{ check: checkNotNull, message: '请选择商户日人流量' },
+				],
+				turnover: [
+					{ check: checkNotNull, message: '请选择商户日营业额' },
+				],
 			}
 		}
 	},
 	computed: {
 		gelocation () {
-			return this.$store.state.promoteRegister.params.gelocation
+			return this.$store.state.merchantRegister.params.gelocation
 		}
 	},
 	mounted () {
@@ -74,8 +121,13 @@ export default {
 					name: this.form.name.value,
 					idCard: this.form.idCard.value,
 					addr: this.form.addr.value,
+					fzrPhone: this.form.fzrPhone.value,
+					customers: this.form.customers.value,
+					turnover: this.form.turnover.value,
 				}
-				this.$store.dispatch('promoteBaseInfoNext', obj)
+				
+				console.log(obj)
+				this.$store.dispatch('merchantBaseInfoNext', obj)
 			}
 		},
 		getLocation () {
@@ -88,7 +140,7 @@ export default {
 				  			latitude: position.coords.latitude,
 				  			longitude: position.coords.longitude
 				  		}
-				  		vm.$store.dispatch('promoteGetGeolocation', params)
+				  		vm.$store.dispatch('merchantGetGeolocation', params)
 					});
 				} else {
 				  notice('地理位置不可用')
@@ -116,6 +168,7 @@ export default {
 	margin-right: auto;
 	background-color: @theme;
 	margin-top: 0.8rem;
+	margin-bottom: 0.533333rem;
 	
 }
 .group-two{

@@ -44,6 +44,7 @@ const InviteReceiveRecord = resolve => {
     resolve(require('@/components/page/general/InviteReceiveRecord.vue'))
   })
 }
+//新邀请注册
 const RegisterOne = resolve => {
   require.ensure(['@/components/page/general/register/RegisterOne.vue'], () => {
     resolve(require('@/components/page/general/register/RegisterOne.vue'))
@@ -52,6 +53,17 @@ const RegisterOne = resolve => {
 const RegisterTwo = resolve => {
   require.ensure(['@/components/page/general/register/RegisterTwo.vue'], () => {
     resolve(require('@/components/page/general/register/RegisterTwo.vue'))
+  })
+}
+//商户注册
+const MerchantRegisterOne = resolve => {
+  require.ensure(['@/components/page/general/register/MerchantRegisterOne.vue'], () => {
+    resolve(require('@/components/page/general/register/MerchantRegisterOne.vue'))
+  })
+}
+const MerchantRegisterTwo = resolve => {
+  require.ensure(['@/components/page/general/register/MerchantRegisterTwo.vue'], () => {
+    resolve(require('@/components/page/general/register/MerchantRegisterTwo.vue'))
   })
 }
 /*
@@ -228,7 +240,7 @@ const router = new Router({
       }
 		},
 		{
-      path: '/promote-register/:type/:account',
+      path: '/promote-register/:type',
       name: 'RegisterOne',
       component: RegisterOne,
       meta: {
@@ -236,13 +248,29 @@ const router = new Router({
       }
 		},
 		{
-      path: '/promote-register-more/:type/:account',
+      path: '/promote-register-more',
       name: 'RegisterTwo',
       component: RegisterTwo,
       meta: {
       	weight: 2
       }
-  },
+  	},
+  	{
+      path: '/merchant-register',
+      name: 'MerchantRegisterOne',
+      component: MerchantRegisterOne,
+      meta: {
+      	weight: 3
+      }
+		},
+		{
+      path: '/merchant-register-more',
+      name: 'MerchantRegisterTwo',
+      component: MerchantRegisterTwo,
+      meta: {
+      	weight: 2
+      }
+  	},
 		/*
 		 * 服务
 		 */

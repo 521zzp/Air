@@ -1,8 +1,9 @@
 <template>
 	<div class="step-two-container">
-		<Step/>
-		<StepOne v-if="step === 1"/>
-		<StepTwo v-if="step === 2"/>
+		<Step :step="step"/>
+		<StepOne v-if="step === 1" @stepChange="stepChange"/>
+		<StepTwo v-if="step === 2" @stepChange="stepChange"/>
+		<StepThree v-if="step === 3"/>
 	</div>
 
 </template>
@@ -12,38 +13,37 @@ import { notice } from '@/tool/talk'
 import Step from '@/components/pure/general/register/Step'
 import StepOne from '@/components/pure/general/register/StepOne'
 import StepTwo from '@/components/pure/general/register/StepTwo'
+import StepThree from '@/components/pure/general/register/StepThree'
 
 export default {
 	data () {
 		return {
 			picOnePath: '',
-			step: 2,
 		}
 	},
+	computed: {
+		account () {
+			return this.$store.state.promoteRegister.params.account
+		},
+		step () {
+			return this.$store.state.promoteRegister.step
+		}
+	},
+	mounted () {
+		/*if (!this.account) {
+			this.$router.push(`/promote-register`)
+		}*/
+	},
 	methods: {
-		picOne (e) {
-			e.preventDefault()
-			console.log(e)
-			console.log(e.target)
-			const inp = e.target
-			console.log(e.target.value)
-			const file = e.target.files[0]
-			console.log(file)
-			
-			if (file.size < 1024 * 1024) {
-				var windowURL = window.URL || window.webkitURL;
-				this.picOnePath = windowURL.createObjectURL(e.target.files[0]);
-			} else{
-				notice('图片过大')
-				inp.value = ''
-			}
-			
+		stepChange (step) {
+			this.$store.dispatch('promoteStepChange', step)
 		}
 	},
 	components:{
 		Step,
 		StepOne,
 		StepTwo,
+		StepThree,
 	}
 }
 

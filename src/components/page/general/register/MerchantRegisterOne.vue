@@ -1,6 +1,9 @@
 <template>
 	<div class="register-one-container">
 		<img :src="logoImg" class="logo"/>
+		<div class="merchant-wrap">
+			<span class="merchant">商户入驻</span>
+		</div>
 		<div class="register-group">
 			<div class="rigist-item-wrap">
 				 <input class="inp" type="text"  v-model="form.account.value" placeholder="手机号码"/>
@@ -90,23 +93,19 @@ export default {
 	},
 	computed: {
 		text () {
-			return this.$store.state.promoteRegister.text
+			return this.$store.state.merchantRegister.text
 		},
 		sendCodeLoading () {
-			return this.$store.state.promoteRegister.sendCodeLoading
+			return this.$store.state.merchantRegister.sendCodeLoading
 		},
 		type () {
-			return this.$store.state.promoteRegister.type
+			return this.$store.state.merchantRegister.type
 		}
-	},
-	created () {
-		const type = this.$route.params.type
-		this.$store.dispatch('promoteTypeChange', type)
 	},
 	methods: {
 		async sendCode () {
  			if (this.form.account.bool || await validateAlert(this.form, this.rules, 'account') ) {
-					this.$store.dispatch('promoteRegistSendCode', { account: this.form.account.value})
+					this.$store.dispatch('merchantRegistSendCode', { account: this.form.account.value})
 			}
 		},
 		async formSubmit (form, rules) {
@@ -118,7 +117,7 @@ export default {
 					invitor: this.form.invitor.value,
 				}
 				if (this.agree) {
-					this.$store.dispatch('promoteValiCode', obj)
+					this.$store.dispatch('merchantValiCode', obj)
 				} else{
 					notice('请仔细阅读并同意掌柜金服注册协议！')
 				}
@@ -147,6 +146,22 @@ export default {
 <style scoped="scoped" lang="less">
 @import url("../../../../config/base.less");
 
+
+.merchant-wrap{
+	text-align: center;
+	
+}
+.merchant{
+	display: inline-block;
+	height: 0.64rem;
+	line-height: 0.64rem;
+	font-size: 0.373333rem;
+	border-radius: 0.32rem;
+	color: @theme;
+	width: 2.133333rem;
+	border: 1px solid @theme;
+	
+}
 .logo{
 	display: block;
 	width: 3.333333rem;

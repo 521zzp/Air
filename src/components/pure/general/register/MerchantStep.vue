@@ -4,14 +4,17 @@
 			<div class="step-one"><span class="dot" :class="{ active: step >= 1 }">1</span></div>
 			<div class="step-two"><span class="dot" :class="{ active: step >= 2 }">2</span></div>
 			<div class="step-three"><span class="dot" :class="{ active: step >= 3 }">3</span></div>
+			<div class="step-three"><span class="dot" :class="{ active: step >= 4 }">4</span></div>
 			<div class="line">
 				<div class="fl" :class="{ active: step > 1  }"></div>
-				<div class="fr" :class="{ active: step > 2  }"></div>
+				<div class="fl" :class="{ active: step > 2  }"></div>
+				<div class="fr" :class="{ active: step > 3  }"></div>
 			</div>			
 		</div>
 		<div class="xxx">
-		 	<span>输入基本信息</span>
+		 	<span>基本信息</span>
 		 	<span>上传照片</span>
+		 	<span>商户照片</span>
 		 	<span>进行审核</span>
 		</div>
 	</div>
@@ -51,7 +54,7 @@ export default {
 	position: absolute;
 	z-index: -1;
 	height: 0.08rem;
-	width: 6.666666rem;
+	width: 6.8rem;
 	margin: auto;
 	left: 0;
 	right: 0;
@@ -59,7 +62,8 @@ export default {
 	bottom: 0;
  	background-color: #999;
  	& div{
- 		width: 50%;
+ 		display: inline-block;
+ 		width: 33.33333%;
  		height: 100%;
  	}
  	& div.active{
@@ -75,7 +79,7 @@ export default {
 	justify-content: space-between;
 }
 .step-one{
-	width: 2.133333rem;
+	width: 1.466666rem;
 	text-align: center;
 }
 .step-two{

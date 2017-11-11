@@ -1,7 +1,6 @@
 import * as types from './mutation-types'
 /*import {EXIT, } from '@/config/url'*/
 import {postModelOne, analy, getModel} from '@/tool/net'
-import {} from '@/tool/talk'
 
 export const actions = {
 	/*exit ({commit},obj){

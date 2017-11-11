@@ -73,3 +73,10 @@ export const confirmDialog = (title, content = '新消息', onOk, onCancel) => {
 	store.state.confirmDialog.config = config
 	store.state.confirmDialog.state++
 }
+
+/*
+ * 全局加载中
+ */
+export const loading = (loading) => {
+	store.state.loading = loading
+}

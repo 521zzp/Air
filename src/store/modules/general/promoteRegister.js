@@ -1,26 +1,40 @@
 import * as types from '../../mutation-types'
-import { REGISTER_SEND_CODE, REGISTER } from '@/config/url'
+import { REGISTER_SEND_CODE, 
+		PROMOTE_REGISTER_VALI_CODE,
+		PROMOTE_IMAGE_UPLOAD,
+		PROMOTE_REGISTER,
+		PROMOTE_VALI_IDCARD_NEXT,
+		VALICODE_IDCARD,
+		GET_GEOLOCATION,  } from '@/config/url'
 import { postModelTwo, analy } from '@/tool/net'
-import { feedback } from '@/tool/talk'
-import store from '@/store'
+import { feedback, loading } from '@/tool/talk'
 import router from '@/router'
 
 const state = {
+	type: 1, //1表示个人扫描二维码， 2表示扫描商户二维码
+	clock: null, //倒计时定时器
 	text: '发送验证码',
 	sendAbel: true,
 	sendCodeLoading: false,
+	step: 1,
 	params: {
 		account: '',
 		phoneCode: '',
 		password: '',
 		invitor: '',
-		
+		name: '', //真实姓名
+		idCard: '',//身份证号
+		gelocation: '', //定位
+		addr: '', //补充详细地址
+		imgOne: '',
+		imgTwo: '',
+		imgThree: '',
 	}
 }
 
 
 const actions = {
-	async registSendCode ({ commit }, obj){
+	async promoteRegistSendCode ({ commit }, obj){
 		if (state.sendAbel) {
 			state.sendAbel = false
 			state.sendCodeLoading = true
@@ -59,22 +73,87 @@ const actions = {
 			})
 		}
   	},
-  	async register ({ commit }, obj) {
-  		const result = await fetch(REGISTER, postModelTwo(obj)).then(analy)
-  		result ? feedback( 'ok', result.msg, () => router.push('/app')) : ''
+  	async promoteValiCode ({ commit }, obj) {
+  		//commit(types.PROMOTE_REGISTER_VALI_CODE, obj)
+  		const result = await fetch(PROMOTE_REGISTER_VALI_CODE, postModelTwo(obj)).then(analy)
+  		result ? commit(types.PROMOTE_REGISTER_VALI_CODE, obj) : ''
+  	},
+  	async promoteBaseInfoNext ({ commit }, obj) {
+  		const result = await fetch(VALICODE_IDCARD, postModelTwo(obj)).then(analy)
+  		result ? commit(types.PROMOTE_VALI_IDCARD_NEXT, obj) : ''
+  		
+  	},
+  	async promoteImageUpload ({ commit }, obj) {
+  		loading(true)
+  		console.log(obj)
+  		const form = new FormData()
+  		form.append('imgOne', obj.imgOne)
+  		form.append('imgTwo', obj.imgTwo)
+  		form.append('imgThree', obj.imgThree)
+  		try {
+  			const imgs = await fetch(PROMOTE_IMAGE_UPLOAD, {
+	  			method: 'post',
+	  			credentials: 'include',
+	  			body: form
+	  		}).then(analy)
+	  		loading(false)
+	  		const register = {
+	  			account: state.params.account,
+	  			phoneCode: state.params.phoneCode,
+	  			password: state.params.password,
+	  			invitor: state.params.invitor,
+	  			name: state.params.name,
+	  			idCard: state.params.idCard,
+	  			gelocation: state.params.gelocation,
+	  			addr: state.params.addr,
+	  			imgOne: imgs.imgOne,
+	  			imgTwo: imgs.imgTwo,
+	  			imgThree: imgs.imgThree,
+	  		}
+	  		debugger
+	  		console.log(register)
+	  		const result = await fetch(PROMOTE_REGISTER, postModelTwo(register)).then(analy)
+	  		result ? commit(types.PROMOTE_STEP_CHANGE, 3) : ''
+  		} catch (e) {
+  			loading(false)
+  			throw e
+  		}
+  	},
+  	promoteStepChange ({ commit }, obj) {
+  		commit(types.PROMOTE_STEP_CHANGE, obj)
+  	},
+  	promoteTypeChange ({ commit }, type) {
+  		commit(types.PROMOTE_REGISTER_TYPE_CHANGE, type)
+  	},
+  	async promoteGetGeolocation ({ commit }, obj) {
+  		const place = await fetch(GET_GEOLOCATION, postModelTwo(obj)).then(analy)
+  		commit(types.PROMOTE_GEOLOCATION_UPDATE, place)
   	}
 }
 
 const mutations = {
-	[types.REGISTER_SEND_CODE] (state, obj) {
-		if (obj.code === 200) {
-			store.state.token = obj.token;
-			store.state.user = obj.obj;
-			feedback(obj.msg, 2, ()=>router.push('/'));
-		}else{
-			feedback(obj.msg, 4)
-		}
-    }
+	[types.PROMOTE_REGISTER_VALI_CODE] (state, obj) {
+		state.params.account = obj.account
+		state.params.phoneCode = obj.phoneCode
+		state.params.password = obj.password
+		state.params.invitor = obj.invitor
+		router.push('/promote-register-more')
+   	},
+   	[types.PROMOTE_STEP_CHANGE] (state, obj) {
+   		state.step = obj
+   	},
+   	[types.PROMOTE_GEOLOCATION_UPDATE] (state, { place }) {
+   		state.params.gelocation = place
+   	},
+   	[types.PROMOTE_REGISTER_TYPE_CHANGE] (state, type) {
+   		state.type = type
+   	},
+   	[types.PROMOTE_VALI_IDCARD_NEXT] (state, obj) {
+   		state.params.name = obj.name
+   		state.params.idCard = obj.idCard
+   		state.params.addr = obj.addr
+   		state.step = 2
+   	}
 }
 
 
