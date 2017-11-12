@@ -1,7 +1,8 @@
 import * as types from '../../mutation-types'
 import { REGISTER_SEND_CODE, 
-		PROMOTE_REGISTER_VALI_CODE,
-		PROMOTE_IMAGE_UPLOAD,
+		VALICODE_IDCARD,
+		VALICODE_PHONE_CODE,
+		MERCHANT_IMAGE_UPLOAD,
 		MERCHANT_REGISTER,
 		GET_GEOLOCATION,  } from '@/config/url'
 import { postModelTwo, analy } from '@/tool/net'
@@ -79,10 +80,9 @@ const actions = {
 			})
 		}
   	},
-  	merchantValiCode ({ commit }, obj) {
-  		commit(types.MERCHANT_REGISTER_VALI_CODE, obj)
-  		/*const result = await fetch(PROMOTE_REGISTER_VALI_CODE, postModelTwo(obj)).then(analy)
-  		result ? commit(types.PROMOTE_REGISTER_VALI_CODE, obj) : ''*/
+  	async merchantValiCode ({ commit }, obj) {
+  		const result = await fetch(VALICODE_PHONE_CODE, postModelTwo(obj)).then(analy)
+  		result ? commit(types.MERCHANT_REGISTER_VALI_CODE, obj) : ''
   	},
   	async merchantBaseInfoNext ({ commit }, obj) {
   		//验证身份证信息,然后进行下一步
@@ -102,16 +102,18 @@ const actions = {
 	  			credentials: 'include',
 	  			body: form
 	  		}).then(analy)
+	  		loading(false)
 	  		/*
 	  		 * 看当前在第几步，
 	  		 * 如果第三步上传，返回结果后直接发送注册请求
 	  		 * 如果第二部上传，把返回地址存储到本地，step加一
 	  		 */
+	  		console.log('step================')
 	  		if (state.step === 2) {
 	  			commit(types.MERCHANT_IMAGE_UPLOAD, imgs)
 	  			
 	  		} else if (state.step === 3){
-	  			const reigster = {
+	  			const register = {
 	  				type: 1, //1表示商户认证，2表示注册
 		  			account: state.params.account,
 		  			phoneCode: state.params.phoneCode,
@@ -135,7 +137,7 @@ const actions = {
 		  			imgNine: imgs.imgNine,
 		  		}
 		  		const result = await fetch(MERCHANT_REGISTER, postModelTwo(register) ).then(analy)
-		  		result ? commit(types.MERCHANT_STEP_CHANGE, 3) : ''
+		  		result ? commit(types.MERCHANT_STEP_CHANGE, 4) : ''
 		  		
 	  		}
 	  		
@@ -155,11 +157,12 @@ const actions = {
 
 const mutations = {
 	[types.MERCHANT_REGISTER_VALI_CODE] (state, obj) {
+		state.step = 1
 		state.params.account = obj.account
 		state.params.phoneCode = obj.phoneCode
 		state.params.password = obj.password
 		state.params.invitor = obj.invitor
-		router.push('/merchant-register-more')
+		router.push(`/merchant-register-more?invitor=${obj.invitor}`)
    	},
    	[types.MERCHANT_STEP_CHANGE] (state, obj) {
    		state.step = obj

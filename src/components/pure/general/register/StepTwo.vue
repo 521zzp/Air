@@ -85,6 +85,7 @@ export default {
 	},
 	methods: {
 		toSelect (item) {
+			this.$refs[item.inp].value = null
 			this.$refs[item.inp].click()
 		},
 		imgSelected (item) {
@@ -93,6 +94,7 @@ export default {
 			item.preview = windowURL.createObjectURL(file);
 		},
 		clear (item) {
+			this.$refs[item.inp].value = null
 			item.preview = ''
 		},
 		submit () {

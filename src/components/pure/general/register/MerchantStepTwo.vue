@@ -6,7 +6,7 @@
 				<span>负责人手持身份证照片（1张）</span>
 			</div>
 			<div class="content">
-				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" />
 				<img class="preview" :src="one.preview" alt="" />
 				<svg v-if="one.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(one)">
 				    <use xlink:href="#icon-trash"></use>
@@ -20,7 +20,7 @@
 				<span>负责人与渠道人员合照（1张）</span>
 			</div>
 			<div class="content">
-				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" />
 				<img class="preview" :src="two.preview" alt="" />
 				<svg v-if="two.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(two)">
 				    <use xlink:href="#icon-trash"></use>
@@ -34,7 +34,7 @@
 				<span>商户营业执照（1张）</span>
 			</div>
 			<div class="content">
-				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" />
 				<img class="preview" :src="three.preview" alt="" />
 				<svg v-if="three.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(three)">
 				    <use xlink:href="#icon-trash"></use>
@@ -48,7 +48,7 @@
 				<span>与我方签订的协议照片</span>
 			</div>
 			<div class="content">
-				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(four)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(four)" accept="image/*" />
 				<img class="preview" :src="four.preview" alt="" />
 				<svg v-if="four.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(four)">
 				    <use xlink:href="#icon-trash"></use>
@@ -94,6 +94,7 @@ export default {
 	},
 	methods: {
 		toSelect (item) {
+			this.$refs[item.inp].value = null
 			this.$refs[item.inp].click()
 		},
 		imgSelected (item) {
@@ -102,6 +103,7 @@ export default {
 			item.preview = windowURL.createObjectURL(file);
 		},
 		clear (item) {
+			this.$refs[item.inp].value = null
 			item.preview = ''
 		},
 		submit () {
@@ -118,7 +120,7 @@ export default {
 				const imgTwo = this.$refs[this.two.inp].files[0]
 				const imgThree = this.$refs[this.three.inp].files[0]
 				const imgFour = this.$refs[this.four.inp].files[0]
-				this.$store.dispatch('promoteImageUpload', { imgOne, imgTwo, imgThree, imgFour })
+				this.$store.dispatch('merchantImageUpload', { imgOne, imgTwo, imgThree, imgFour })
 			}
 		},
 		back () {

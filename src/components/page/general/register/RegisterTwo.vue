@@ -30,9 +30,11 @@ export default {
 		}
 	},
 	mounted () {
-		/*if (!this.account) {
-			this.$router.push(`/promote-register`)
-		}*/
+		const type =  this.$route.params.type
+		const invitor = this.$route.query.invitor
+		if (!this.account) {
+			this.$router.push(`/promote-register/${type}?invitor=${invotor}`)
+		}
 	},
 	methods: {
 		stepChange (step) {

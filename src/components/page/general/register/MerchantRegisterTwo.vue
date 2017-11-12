@@ -33,9 +33,10 @@ export default {
 		}
 	},
 	mounted () {
-		/*if (!this.account) {
-			this.$router.push(`/promote-register`)
-		}*/
+		const invitor = this.$route.query.invitor
+		if (!this.account) {
+			this.$router.push(`/merchant-register?invitor=${invitor}`)
+		}
 	},
 	methods: {
 		stepChange (step) {

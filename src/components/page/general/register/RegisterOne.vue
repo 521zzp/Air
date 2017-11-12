@@ -116,6 +116,7 @@ export default {
 					phoneCode: this.form.phoneCode.value,
 					password: this.form.password.value,
 					invitor: this.form.invitor.value,
+					type: this.$route.params.type
 				}
 				if (this.agree) {
 					this.$store.dispatch('promoteValiCode', obj)

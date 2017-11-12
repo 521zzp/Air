@@ -51,7 +51,7 @@ export default {
 				],
 				idCard: [
 					{ check: checkNotNull, message: '身份证号码不能为空' },
-					{ check: checkIdcard, message: '身份证号码正确' },
+					{ check: checkIdcard, message: '身份证号码格式不正确' },
 				],
 				addr: [
 					{ check: checkNotNull, message: '详细地址不能为空' },
@@ -83,7 +83,6 @@ export default {
 			try{
 				if ("geolocation" in navigator) {
 				  	navigator.geolocation.getCurrentPosition(function(position) {
-				  		notice('经度： '+ position.coords.latitude + ';维度：' + position.coords.longitude)
 				  		const params = {
 				  			latitude: position.coords.latitude,
 				  			longitude: position.coords.longitude
@@ -94,7 +93,7 @@ export default {
 				  notice('地理位置不可用')
 				}
 			}catch(e){
-				notice('error')
+				notice('地理位置不可用')
 			}
 		}
 	}

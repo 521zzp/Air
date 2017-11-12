@@ -98,6 +98,7 @@ const actions = {
 	  		}).then(analy)
 	  		loading(false)
 	  		const register = {
+	  			type: 2, //1表示商户认证，2表示注册
 	  			account: state.params.account,
 	  			phoneCode: state.params.phoneCode,
 	  			password: state.params.password,
@@ -110,8 +111,6 @@ const actions = {
 	  			imgTwo: imgs.imgTwo,
 	  			imgThree: imgs.imgThree,
 	  		}
-	  		debugger
-	  		console.log(register)
 	  		const result = await fetch(PROMOTE_REGISTER, postModelTwo(register)).then(analy)
 	  		result ? commit(types.PROMOTE_STEP_CHANGE, 3) : ''
   		} catch (e) {
@@ -133,11 +132,12 @@ const actions = {
 
 const mutations = {
 	[types.PROMOTE_REGISTER_VALI_CODE] (state, obj) {
+		state.step = 1
 		state.params.account = obj.account
 		state.params.phoneCode = obj.phoneCode
 		state.params.password = obj.password
 		state.params.invitor = obj.invitor
-		router.push('/promote-register-more')
+		router.push(`/promote-register-more/${obj.type}?invitor=${obj.invitor}`)
    	},
    	[types.PROMOTE_STEP_CHANGE] (state, obj) {
    		state.step = obj

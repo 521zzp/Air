@@ -248,7 +248,7 @@ const router = new Router({
       }
 		},
 		{
-      path: '/promote-register-more',
+      path: '/promote-register-more/:type',
       name: 'RegisterTwo',
       component: RegisterTwo,
       meta: {

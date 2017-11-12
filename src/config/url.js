@@ -11,7 +11,8 @@ export const UPLOAD_IMAGE = BASEURL + '/safafa' //通用图片上传接口
 
 //验证身份证号
 export const VALICODE_IDCARD = BASEURL + '/confirmIdentity'  //验证身份证号码接口
-
+//通用验证码验证
+export const VALICODE_PHONE_CODE = BASEURL + '/confirmCode' //验证验证码
 //根据经纬度获取地理位置
 export const GET_GEOLOCATION = BASEURL + '/getPosition'  //
 
@@ -24,8 +25,8 @@ export const PROMOTE_REGISTER_VALI_CODE = BASEURL + '/confirmCode' //验证验�
 export const PROMOTE_IMAGE_UPLOAD = BASEURL + '/uploadImage' //推广上传照片
 export const PROMOTE_REGISTER = BASEURL + '/newRegist' //推广最终注册
 //商户注册认证
-export const MERCHANT_REGISTER = BASEURL + '/sadgag' //商户最终注册
-
+export const MERCHANT_REGISTER = BASEURL + '/newRegist' //商户最终注册
+export const MERCHANT_IMAGE_UPLOAD = BASEURL + '/uploadImage' //推广上传照片
 
 //其他通用部分
 export const NEWS_ITEM = BASEURL + '/news' //获取新闻详情信息

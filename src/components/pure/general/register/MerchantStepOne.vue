@@ -31,17 +31,17 @@
 			<div class="item" >
 				<span class="name" style="vertical-align: top;" >日人流量</span>
 				<mu-select-field v-model="form.customers.value" style="width: 6.96rem;vertical-align: bottom;" >
-				    <mu-menu-item value="1" title="1~100人"/>
-				    <mu-menu-item value="2" title="100~500人"/>
-				    <mu-menu-item value="3" title="500人以上"/>
+				    <mu-menu-item value="1~100人" title="1~100人"/>
+				    <mu-menu-item value="100~500人" title="100~500人"/>
+				    <mu-menu-item value="500人以上" title="500人以上"/>
 				</mu-select-field>
 			</div>
 			<div class="item">
 				<span class="name" style="vertical-align: top;">日营业额</span>
-				<mu-select-field v-model="form.customers.value" style="width: 6.96rem;vertical-align: bottom;" >
-				    <mu-menu-item value="1" title="1~4000元"/>
-				    <mu-menu-item value="2" title="4001~10000元"/>
-				    <mu-menu-item value="3" title="10000元以上"/>
+				<mu-select-field v-model="form.turnover.value" style="width: 6.96rem;vertical-align: bottom;" >
+				    <mu-menu-item value="1~4000元" title="1~4000元"/>
+				    <mu-menu-item value="4001~10000元" title="4001~10000元"/>
+				    <mu-menu-item value="10000元以上" title="10000元以上"/>
 				</mu-select-field>
 			</div>
 		</div>
@@ -135,7 +135,6 @@ export default {
 			try{
 				if ("geolocation" in navigator) {
 				  	navigator.geolocation.getCurrentPosition(function(position) {
-				  		notice('经度： '+ position.coords.latitude + ';维度：' + position.coords.longitude)
 				  		const params = {
 				  			latitude: position.coords.latitude,
 				  			longitude: position.coords.longitude
@@ -146,7 +145,7 @@ export default {
 				  notice('地理位置不可用')
 				}
 			}catch(e){
-				notice('error')
+				notice('地理位置不可用')
 			}
 		}
 	}

@@ -23,7 +23,6 @@ export const analy = (response) => Promise.resolve(response).then(status).then(j
  * 解析返回code,纯数组或对象
  */
 export const resultAny = (datas) => {
-	
 	if (datas.code === 200) {
 		if (Object.getOwnPropertyNames(datas.result).length === 1 && datas.result.list && Array.isArray(datas.result.list)) { 
 			//返回数据里面仅有一个属性，属性名为list，且对应值类型为Array时返回该list

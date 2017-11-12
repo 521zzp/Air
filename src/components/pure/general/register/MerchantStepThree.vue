@@ -7,7 +7,7 @@
 			</div>
 			
 			<div class="content">
-				<input type="file" style="display: none;" ref="picFive" @change="imgSelected(five)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picFive" @change="imgSelected(five)" accept="image/*" />
 				<img class="preview" :src="five.preview" alt="" />
 				<svg v-if="five.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(five)">
 				    <use xlink:href="#icon-trash"></use>
@@ -16,7 +16,7 @@
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(five)" />
 			
 			<div class="content">
-				<input type="file" style="display: none;" ref="picSix" @change="imgSelected(six)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picSix" @change="imgSelected(six)" accept="image/*" />
 				<img class="preview" :src="six.preview" alt="" />
 				<svg v-if="six.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(six)">
 				    <use xlink:href="#icon-trash"></use>
@@ -25,7 +25,7 @@
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(six)" />
 			
 			<div class="content">
-				<input type="file" style="display: none;" ref="picSeven" @change="imgSelected(seven)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picSeven" @change="imgSelected(seven)" accept="image/*" />
 				<img class="preview" :src="seven.preview" alt="" />
 				<svg v-if="seven.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(seven)">
 				    <use xlink:href="#icon-trash"></use>
@@ -34,7 +34,7 @@
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(seven)" />
 			
 			<div class="content">
-				<input type="file" style="display: none;" ref="picEight" @change="imgSelected(eight)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picEight" @change="imgSelected(eight)" accept="image/*" />
 				<img class="preview" :src="eight.preview" alt="" />
 				<svg v-if="eight.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(eight)">
 				    <use xlink:href="#icon-trash"></use>
@@ -43,7 +43,7 @@
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(eight)" />
 			
 			<div class="content">
-				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(nine)" accept="image/*" capture="camera"/>
+				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(nine)" accept="image/*" />
 				<img class="preview" :src="nine.preview" alt="" />
 				<svg v-if="nine.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(nine)">
 				    <use xlink:href="#icon-trash"></use>
@@ -94,6 +94,7 @@ export default {
 	},
 	methods: {
 		toSelect (item) {
+			this.$refs[item.inp].value = null
 			this.$refs[item.inp].click()
 		},
 		imgSelected (item) {
@@ -102,6 +103,7 @@ export default {
 			item.preview = windowURL.createObjectURL(file);
 		},
 		clear (item) {
+			this.$refs[item.inp].value = null
 			item.preview = ''
 		},
 		submit () {
