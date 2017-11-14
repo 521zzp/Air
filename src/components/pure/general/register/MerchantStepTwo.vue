@@ -5,7 +5,7 @@
 				<span class="line"></span>
 				<span>负责人手持身份证照片（1张）</span>
 			</div>
-			<div class="content">
+			<div class="content merchant-img-one">
 				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" />
 				<img class="preview" :src="one.preview" alt="" />
 				<svg v-if="one.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(one)">
@@ -19,7 +19,7 @@
 				<span class="line"></span>
 				<span>负责人与渠道人员合照（1张）</span>
 			</div>
-			<div class="content">
+			<div class="content merchant-img-two">
 				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" />
 				<img class="preview" :src="two.preview" alt="" />
 				<svg v-if="two.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(two)">
@@ -33,7 +33,7 @@
 				<span class="line"></span>
 				<span>商户营业执照（1张）</span>
 			</div>
-			<div class="content">
+			<div class="content merchant-img-three">
 				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" />
 				<img class="preview" :src="three.preview" alt="" />
 				<svg v-if="three.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(three)">
@@ -47,7 +47,7 @@
 				<span class="line"></span>
 				<span>与我方签订的协议照片</span>
 			</div>
-			<div class="content">
+			<div class="content merchant-img-four">
 				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(four)" accept="image/*" />
 				<img class="preview" :src="four.preview" alt="" />
 				<svg v-if="four.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(four)">
@@ -174,16 +174,41 @@ export default {
 }
 .content{
 	position: relative;
+	background-size: 100% 100%;
 	width: 8.533333rem;
 	height: 4.266666rem;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #f0f0f3;
 	.preview{
+		position: absolute;
 		width: 100%;
 		height: 100%;
 	}
 }
+.content:before{
+	top: 0;
+	display: block;
+	content: '';
+	position: absolute;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	background-image: url('@{image}/promote-register/watermark.png');
+}
+.merchant-img-one{
+	background-image: url('@{image}/promote-register/idCard.png');
+}
+.merchant-img-two{
+	background-image: url('@{image}/promote-register/fzr-group-photo.png');
+}
+.merchant-img-three{
+	background-image: url('@{image}/promote-register/business-licence.png');
+}
+.merchant-img-four{
+	background-image: url('@{image}/promote-register/protocol.png');
+}
+
 .title{
 	height: 1.6rem;
 	line-height: 1.6rem;

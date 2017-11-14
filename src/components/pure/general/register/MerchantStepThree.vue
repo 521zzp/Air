@@ -3,10 +3,10 @@
 		<div class="item">
 			<div class="title">
 				<span class="line"></span>
-				<span class="title-text">请上传最多5张商户照片，例正面照片+大堂照片+商户招牌招牌+外景照（至少上传3张）</span>
+				<span class="title-text">请上传最多5张商户照片，例正面照片+大堂照片+商户门头照片+外景照（至少上传3张）</span>
 			</div>
 			
-			<div class="content">
+			<div class="content merchant-img-five">
 				<input type="file" style="display: none;" ref="picFive" @change="imgSelected(five)" accept="image/*" />
 				<img class="preview" :src="five.preview" alt="" />
 				<svg v-if="five.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(five)">
@@ -15,7 +15,7 @@
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(five)" />
 			
-			<div class="content">
+			<div class="content merchant-img-six">
 				<input type="file" style="display: none;" ref="picSix" @change="imgSelected(six)" accept="image/*" />
 				<img class="preview" :src="six.preview" alt="" />
 				<svg v-if="six.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(six)">
@@ -24,7 +24,7 @@
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(six)" />
 			
-			<div class="content">
+			<div class="content merchant-img-seven">
 				<input type="file" style="display: none;" ref="picSeven" @change="imgSelected(seven)" accept="image/*" />
 				<img class="preview" :src="seven.preview" alt="" />
 				<svg v-if="seven.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(seven)">
@@ -33,7 +33,7 @@
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(seven)" />
 			
-			<div class="content">
+			<div class="content merchant-img-eight">
 				<input type="file" style="display: none;" ref="picEight" @change="imgSelected(eight)" accept="image/*" />
 				<img class="preview" :src="eight.preview" alt="" />
 				<svg v-if="eight.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(eight)">
@@ -42,7 +42,7 @@
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(eight)" />
 			
-			<div class="content">
+			<div class="content merchant-img-nine">
 				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(nine)" accept="image/*" />
 				<img class="preview" :src="nine.preview" alt="" />
 				<svg v-if="nine.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(nine)">
@@ -194,15 +194,42 @@ export default {
 }
 .content{
 	position: relative;
+	background-size: 100% 100%;
 	width: 8.533333rem;
 	height: 4.266666rem;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #f0f0f3;
 	.preview{
+		position: absolute;
 		width: 100%;
 		height: 100%;
 	}
+}
+.content:before{
+	top: 0;
+	display: block;
+	content: '';
+	position: absolute;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	background-image: url('@{image}/promote-register/watermark.png');
+}
+.merchant-img-five{
+	background-image: url('@{image}/promote-register/merchant-five.jpg');
+}
+.merchant-img-six{
+	background-image: url('@{image}/promote-register/merchant-six.jpg');
+}
+.merchant-img-seven{
+	background-image: url('@{image}/promote-register/merchant-seven.jpg');
+}
+.merchant-img-eight{
+	background-image: url('@{image}/promote-register/merchant-eight.jpg');
+}
+.merchant-img-nine{
+	background-image: url('@{image}/promote-register/merchant-nine.jpg');
 }
 .title{
 	line-height: 1.6rem;

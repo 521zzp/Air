@@ -133,6 +133,12 @@ export default {
 				}
 				
 			},100)
+		},
+		socketOn (){
+			if (!this.$store.state.customerService.socketOn) {
+				this.busy = true
+				notice('当前客服离线中，暂时无法回复您！')
+			}
 		}
 	},
 	

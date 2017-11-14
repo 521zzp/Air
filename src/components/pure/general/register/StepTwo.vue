@@ -5,8 +5,8 @@
 				<span class="line"></span>
 				<span>{{ imgOneTitle }}</span>
 			</div>
-			<div class="content">
-				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" capture="camera"/>
+			<div class="content" :class="{ 'sign-group-photo': type == 2, 'idCard-img': type == 1 }">
+				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" />
 				<img class="preview" :src="one.preview" alt="" />
 				<svg v-if="one.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(one)">
 				    <use xlink:href="#icon-trash"></use>
@@ -19,8 +19,8 @@
 				<span class="line"></span>
 				<span>{{ imgTwoTitle }}</span>
 			</div>
-			<div class="content">
-				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" capture="camera"/>
+			<div class="content" :class="{ 'receip-img': type == 2, 'handle-money': type == 1 }">
+				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" />
 				<img class="preview" :src="two.preview" alt="" />
 				<svg v-if="two.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(two)">
 				    <use xlink:href="#icon-trash"></use>
@@ -33,8 +33,8 @@
 				<span class="line"></span>
 				<span>{{ imgThreeTitle }}</span>
 			</div>
-			<div class="content">
-				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" capture="camera"/>
+			<div class="content" :class="{ 'merchant-img': type == 2, 'merchant-group-photo': type == 1 }">
+				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" />
 				<img class="preview" :src="three.preview" alt="" />
 				<svg v-if="three.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(three)">
 				    <use xlink:href="#icon-trash"></use>
@@ -74,7 +74,7 @@ export default {
 			return this.$store.state.promoteRegister.type
 		},
 		imgOneTitle () {
-			return this.type === 2 ? '与饭店招牌的合影（1张）' : '您正面手持身份证的照片（1张）'
+			return this.type === 2 ? '与商户招牌的合影（1张）' : '您正面手持身份证的照片（1张）'
 		},
 		imgTwoTitle () {
 			return this.type === 2 ? '消费的小票照片（1张）' : '正面手持10元人民币照片（1张）'
@@ -162,15 +162,46 @@ export default {
 }
 .content{
 	position: relative;
+	background-size: 100% 100%;
 	width: 8.533333rem;
 	height: 4.266666rem;
 	margin-left: auto;
 	margin-right: auto;
+	background-size: 100% 100%;
 	background-color: #f0f0f3;
 	.preview{
+		position: absolute;
 		width: 100%;
 		height: 100%;
 	}
+}
+.content:before{
+	top: 0;
+	display: block;
+	content: '';
+	position: absolute;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	background-image: url('@{image}/promote-register/watermark.png');
+}
+.sign-group-photo{
+	background-image: url('@{image}/promote-register/sign-group-photo.png');
+}
+.idCard-img{
+	background-image: url('@{image}/promote-register/idCard.png');
+}
+.merchant-img{
+	background-image: url('@{image}/promote-register/merchant-img.png');
+}
+.handle-money{
+	background-image: url('@{image}/promote-register/handle-money.png');
+}
+.receip-img{
+	background-image: url('@{image}/promote-register/receip-img.png');
+}
+.merchant-group-photo{
+	background-image: url('@{image}/promote-register/merchant-group-photo.png');
 }
 .title{
 	height: 1.6rem;

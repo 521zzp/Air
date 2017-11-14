@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div class="card-text text-two">
-			<span>您可要已先下载掌柜金服APP</span>
+			<span>您可先下载掌柜金服APP</span>
 			<span>开启您的理财之旅</span>
 		</div>
 		<router-link to="/app"><mu-raised-button label="下载掌柜金服APP" class="submit" /></router-link>
