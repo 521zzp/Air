@@ -74,13 +74,13 @@ export default {
 			return this.$store.state.promoteRegister.type
 		},
 		imgOneTitle () {
-			return this.type === 2 ? '与商户招牌的合影（1张）' : '您正面手持身份证的照片（1张）'
+			return this.type == 2 ? '与商户招牌的合影（1张）' : '您正面手持身份证的照片（1张）'
 		},
 		imgTwoTitle () {
-			return this.type === 2 ? '消费的小票照片（1张）' : '正面手持10元人民币照片（1张）'
+			return this.type == 2 ? '消费的小票照片（1张）' : '正面手持10元人民币照片（1张）'
 		},
 		imgThreeTitle () {
-			return this.type === 2 ? '拍摄的饭店照片（1张）' : '与上级用户的合照（1张）'
+			return this.type == 2 ? '拍摄的饭店照片（1张）' : '与上级用户的合照（1张）'
 		},
 	},
 	methods: {

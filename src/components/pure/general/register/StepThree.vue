@@ -7,7 +7,7 @@
 				</svg>
 			</div>
 			<div class="card-text">
-				<span>您的料已提交成功！工作人员会在</span>
+				<span>您的资料已经提交成功！工作人员会在</span>
 				<span>1-3个工作日内完成审核，请耐心等待</span>
 			</div>
 		</div>
