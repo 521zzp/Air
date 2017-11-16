@@ -3,9 +3,9 @@
 		<div class="item">
 			<div class="title">
 				<span class="line"></span>
-				<span>{{ imgOneTitle }}</span>
+				<span>请上传示例中手势照片</span>
 			</div>
-			<div class="content" :class="{ 'sign-group-photo': type == 2, 'idCard-img': type == 1 }">
+			<div class="content" :style="{backgroundImage: 'url('+imgInfo.path+')'}" >
 				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" />
 				<img class="preview" :src="one.preview" alt="" />
 				<svg v-if="one.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(one)">
@@ -14,7 +14,7 @@
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(one)"/>
 		</div>
-		<div class="item">
+		<!--<div class="item">
 			<div class="title">
 				<span class="line"></span>
 				<span>{{ imgTwoTitle }}</span>
@@ -41,7 +41,7 @@
 				</svg>
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(three)"/>
-		</div>
+		</div>-->
 		<div class="btn-group clearfix">
 			<mu-raised-button label="上一步" class="prev btn-item fl" @click="back"/>
 			<mu-raised-button label="提交" class="submit btn-item fr" @click="submit"/>
@@ -51,6 +51,8 @@
 
 <script>
 import { notice } from '@/tool/talk'
+import { IMG } from '@/config/url'
+import { randomNum } from '@/tool/tool'
 
 export default {
 	data () {
@@ -59,29 +61,39 @@ export default {
 				inp: 'picOne',
 				preview: '',
 			},
-			two: {
-				inp: 'picTwo',
-				preview: '',
-			},
-			three: {
-				inp: 'picThree',
-				preview: '',
-			},
+			imgIndex: 0,
+			gesture: [
+				{
+					name: 'one',
+					path: 'gesture-one.jpg',
+				},
+				{
+					name: 'two',
+					path: 'gesture-two.jpg',
+				},
+				{
+					name: 'three',
+					path: 'gesture-three.jpg',
+				},
+				{
+					name: 'four',
+					path: 'gesture-four.jpg',
+				},
+			]
 		}
 	},
 	computed: {
-		type () {
-			return this.$store.state.promoteRegister.type
-		},
-		imgOneTitle () {
-			return this.type == 2 ? '与商户招牌的合影（1张）' : '您正面手持身份证的照片（1张）'
-		},
-		imgTwoTitle () {
-			return this.type == 2 ? '消费的小票照片（1张）' : '正面手持10元人民币照片（1张）'
-		},
-		imgThreeTitle () {
-			return this.type == 2 ? '拍摄的饭店照片（1张）' : '与上级用户的合照（1张）'
-		},
+		imgInfo () {
+			return {
+				name: this.gesture[this.imgIndex].name,
+				path: IMG + '/promote-register/' + this.gesture[this.imgIndex].path
+			}
+		}
+	},
+	mounted () {
+		const index = randomNum(0, 3)
+		console.log(index)
+		this.imgIndex = index
 	},
 	methods: {
 		toSelect (item) {
@@ -99,16 +111,12 @@ export default {
 		},
 		submit () {
 			if (!this.one.preview) {
-				notice('请选择手持身份证的照片')
-			} else if (!this.two.preview){
-				notice('请选择正面手持10元人民币照片')
-			} else if (!this.three.preview) {
-				notice('请选择与推荐人的合照')
-			} else{
+				notice('请上传手势图片')
+			}  else{
 				const imgOne = this.$refs[this.one.inp].files[0] 
-				const imgTwo = this.$refs[this.two.inp].files[0]
-				const imgThree = this.$refs[this.three.inp].files[0]
-				this.$store.dispatch('promoteImageUpload', { imgOne, imgTwo, imgThree })
+				//const imgTwo = this.$refs[this.two.inp].files[0]
+				//const imgThree = this.$refs[this.three.inp].files[0]
+				this.$store.dispatch('promoteImageUpload', { imgOne, imgIndex: this.imgIndex })
 			}
 		},
 		back () {

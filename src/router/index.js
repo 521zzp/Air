@@ -240,7 +240,7 @@ const router = new Router({
       }
 		},
 		{
-      path: '/promote-register/:type',
+      path: '/promote-register',
       name: 'RegisterOne',
       component: RegisterOne,
       meta: {
@@ -248,7 +248,7 @@ const router = new Router({
       }
 		},
 		{
-      path: '/promote-register-more/:type',
+      path: '/promote-register-more',
       name: 'RegisterTwo',
       component: RegisterTwo,
       meta: {

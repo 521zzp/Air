@@ -10,6 +10,8 @@ import { postModelTwo, analy } from '@/tool/net'
 import { feedback, loading } from '@/tool/talk'
 import router from '@/router'
 
+
+
 const state = {
 	type: 1, //1表示个人扫描二维码， 2表示扫描商户二维码
 	clock: null, //倒计时定时器
@@ -26,9 +28,8 @@ const state = {
 		idCard: '',//身份证号
 		gelocation: '', //定位
 		addr: '', //补充详细地址
+		imgIndex: 0, //手势索引
 		imgOne: '',
-		imgTwo: '',
-		imgThree: '',
 	}
 }
 
@@ -88,8 +89,8 @@ const actions = {
   		console.log(obj)
   		const form = new FormData()
   		form.append('imgOne', obj.imgOne)
-  		form.append('imgTwo', obj.imgTwo)
-  		form.append('imgThree', obj.imgThree)
+  		//form.append('imgTwo', obj.imgTwo)
+  		//form.append('imgThree', obj.imgThree)
   		try {
   			const imgs = await fetch(PROMOTE_IMAGE_UPLOAD, {
 	  			method: 'post',
@@ -107,9 +108,10 @@ const actions = {
 	  			idCard: state.params.idCard,
 	  			gelocation: state.params.gelocation,
 	  			addr: state.params.addr,
+	  			imgIndex: obj.imgIndex,
 	  			imgOne: imgs.imgOne,
-	  			imgTwo: imgs.imgTwo,
-	  			imgThree: imgs.imgThree,
+	  			//imgTwo: imgs.imgTwo,
+	  			//imgThree: imgs.imgThree,
 	  		}
 	  		const result = await fetch(PROMOTE_REGISTER, postModelTwo(register)).then(analy)
 	  		result ? commit(types.PROMOTE_STEP_CHANGE, 3) : ''
@@ -120,9 +122,6 @@ const actions = {
   	},
   	promoteStepChange ({ commit }, obj) {
   		commit(types.PROMOTE_STEP_CHANGE, obj)
-  	},
-  	promoteTypeChange ({ commit }, type) {
-  		commit(types.PROMOTE_REGISTER_TYPE_CHANGE, type)
   	},
   	async promoteGetGeolocation ({ commit }, obj) {
   		const place = await fetch(GET_GEOLOCATION, postModelTwo(obj)).then(analy)
@@ -137,16 +136,13 @@ const mutations = {
 		state.params.phoneCode = obj.phoneCode
 		state.params.password = obj.password
 		state.params.invitor = obj.invitor
-		router.push(`/promote-register-more/${obj.type}?invitor=${obj.invitor}`)
+		router.push(`/promote-register-more?invitor=${obj.invitor}`)
    	},
    	[types.PROMOTE_STEP_CHANGE] (state, obj) {
    		state.step = obj
    	},
    	[types.PROMOTE_GEOLOCATION_UPDATE] (state, { place }) {
    		state.params.gelocation = place
-   	},
-   	[types.PROMOTE_REGISTER_TYPE_CHANGE] (state, type) {
-   		state.type = type
    	},
    	[types.PROMOTE_VALI_IDCARD_NEXT] (state, obj) {
    		state.params.name = obj.name

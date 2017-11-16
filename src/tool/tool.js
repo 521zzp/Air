@@ -133,3 +133,7 @@ export const getQueryString = (name) => {
 }
 
 
+//生成从m到n的随机数
+export const randomNum = (m, n) => {
+	return parseInt(Math.random()*(n-m+1)+m);
+} 

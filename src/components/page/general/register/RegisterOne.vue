@@ -95,13 +95,13 @@ export default {
 		sendCodeLoading () {
 			return this.$store.state.promoteRegister.sendCodeLoading
 		},
-		type () {
+		/*type () {
 			return this.$store.state.promoteRegister.type
-		}
+		}*/
 	},
 	created () {
-		const type = this.$route.params.type
-		this.$store.dispatch('promoteTypeChange', type)
+		/*const type = this.$route.params.type
+		this.$store.dispatch('promoteTypeChange', type)*/
 	},
 	methods: {
 		async sendCode () {
@@ -116,7 +116,7 @@ export default {
 					phoneCode: this.form.phoneCode.value,
 					password: this.form.password.value,
 					invitor: this.form.invitor.value,
-					type: this.$route.params.type
+					//type: this.$route.params.type
 				}
 				if (this.agree) {
 					this.$store.dispatch('promoteValiCode', obj)
