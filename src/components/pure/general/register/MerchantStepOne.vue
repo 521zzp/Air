@@ -89,7 +89,7 @@ export default {
 				],
 				idCard: [
 					{ check: checkNotNull, message: '身份证号码不能为空' },
-					{ check: checkIdcard, message: '身份证号码正确' },
+					{ check: checkIdcard, message: '身份证号码不正确' },
 				],
 				addr: [
 					{ check: checkNotNull, message: '详细地址不能为空' },

@@ -8,7 +8,7 @@
 			
 			<div class="content merchant-img-five">
 				<input type="file" style="display: none;" ref="picFive" @change="imgSelected(five)" accept="image/*" />
-				<img class="preview" :src="five.preview" alt="" />
+				<img v-if="five.preview" class="preview" :src="five.preview" alt="" />
 				<svg v-if="five.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(five)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -17,7 +17,7 @@
 			
 			<div class="content merchant-img-six">
 				<input type="file" style="display: none;" ref="picSix" @change="imgSelected(six)" accept="image/*" />
-				<img class="preview" :src="six.preview" alt="" />
+				<img v-if="six.preview" class="preview" :src="six.preview" alt="" />
 				<svg v-if="six.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(six)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -26,7 +26,7 @@
 			
 			<div class="content merchant-img-seven">
 				<input type="file" style="display: none;" ref="picSeven" @change="imgSelected(seven)" accept="image/*" />
-				<img class="preview" :src="seven.preview" alt="" />
+				<img v-if="seven.preview" class="preview" :src="seven.preview" alt="" />
 				<svg v-if="seven.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(seven)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -35,7 +35,7 @@
 			
 			<div class="content merchant-img-eight">
 				<input type="file" style="display: none;" ref="picEight" @change="imgSelected(eight)" accept="image/*" />
-				<img class="preview" :src="eight.preview" alt="" />
+				<img v-if="eight.preview" class="preview" :src="eight.preview" alt="" />
 				<svg v-if="eight.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(eight)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -44,7 +44,7 @@
 			
 			<div class="content merchant-img-nine">
 				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(nine)" accept="image/*" />
-				<img class="preview" :src="nine.preview" alt="" />
+				<img v-if="nine.preview" class="preview" :src="nine.preview" alt="" />
 				<svg v-if="nine.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(nine)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -99,8 +99,24 @@ export default {
 		},
 		imgSelected (item) {
 			const file = this.$refs[item.inp].files[0]
-			const windowURL = window.URL || window.webkitURL;
-			item.preview = windowURL.createObjectURL(file);
+			/*const windowURL = window.URL || window.webkitURL;
+			item.preview = windowURL.createObjectURL(file);*/
+			const fr = new FileReader()
+			fr.readAsDataURL(file)
+			fr.onload = function (e) {
+				item.preview = this.result
+			}
+			
+			fr.onabort = function () {
+				notice('读取文件错误请稍后拍摄')
+				item.preview = ''
+			}
+			
+			fr.onerror = function () {
+				notice('读取文件错误请稍后拍摄')
+				item.preview = ''
+			}
+			
 		},
 		clear (item) {
 			this.$refs[item.inp].value = null
@@ -115,33 +131,30 @@ export default {
 			if (this.eight.preview) size++;
 			
 			if (size >= 3) {
+				const imgFive = this.five.preview ? this.$refs[this.five.inp].files[0] : undefined
+				const imgSix = this.six.preview ? this.$refs[this.six.inp].files[0] : undefined
+				const imgSeven = this.seven.preview ? this.$refs[this.seven.inp].files[0] : undefined
+				const imgEight = this.eight.preview ? this.$refs[this.eight.inp].files[0] : undefined
+				const imgNine = this.nine.preview ? this.$refs[this.nine.inp].files[0] : undefined
 				
+				const imgs = {
+					imgFive,
+					imgSix,
+					imgSeven,
+					imgEight,
+					imgNine, 
+				}
+				
+				
+				this.$store.dispatch('merchantImageUpload', imgs)
 			} else{
 				notice('请至少选择3张图片')
 			}
 			
-			const imgFive = this.five.preview ? this.$refs[this.five.inp].files[0] : undefined
-			const imgSix = this.six.preview ? this.$refs[this.six.inp].files[0] : undefined
-			const imgSeven = this.seven.preview ? this.$refs[this.seven.inp].files[0] : undefined
-			const imgEight = this.eight.preview ? this.$refs[this.eight.inp].files[0] : undefined
-			const imgNine = this.nine.preview ? this.$refs[this.nine.inp].files[0] : undefined
 			
-			const imgs = {
-				imgFive,
-				imgSix,
-				imgSeven,
-				imgEight,
-				imgNine, 
-			}
-			
-			for (let var1 in imgs) {
-				console.log(var1)
-			}
-			
-			this.$store.dispatch('merchantImageUpload', imgs)
 		},
 		back () {
-			this.$emit('stepChange', 1)
+			this.$emit('stepChange', 2)
 		}
 	}
 }

@@ -7,7 +7,7 @@
 			</div>
 			<div class="content" :style="{backgroundImage: 'url('+imgInfo.path+')'}" >
 				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" />
-				<img class="preview" :src="one.preview" alt="" />
+				<img v-if="one.preview" class="preview" :src="one.preview" alt="" />
 				<svg v-if="one.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(one)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -79,6 +79,14 @@ export default {
 					name: 'four',
 					path: 'gesture-four.jpg',
 				},
+				{
+					name: 'five',
+					path: 'gesture-five.jpg',
+				},
+				{
+					name: 'six',
+					path: 'gesture-six.jpg',
+				},
 			]
 		}
 	},
@@ -91,7 +99,7 @@ export default {
 		}
 	},
 	mounted () {
-		const index = randomNum(0, 3)
+		const index = randomNum(0, 5)
 		console.log(index)
 		this.imgIndex = index
 	},
@@ -102,8 +110,23 @@ export default {
 		},
 		imgSelected (item) {
 			const file = this.$refs[item.inp].files[0]
-			const windowURL = window.URL || window.webkitURL;
-			item.preview = windowURL.createObjectURL(file);
+			/*const windowURL = window.URL || window.webkitURL;
+			item.preview = windowURL.createObjectURL(file);*/
+			const fr = new FileReader()
+			fr.readAsDataURL(file)
+			fr.onload = function (e) {
+				item.preview = this.result
+			}
+			
+			fr.onabort = function () {
+				notice('读取文件错误请稍后拍摄')
+				item.preview = ''
+			}
+			
+			fr.onerror = function () {
+				notice('读取文件错误请稍后拍摄')
+				item.preview = ''
+			}
 		},
 		clear (item) {
 			this.$refs[item.inp].value = null

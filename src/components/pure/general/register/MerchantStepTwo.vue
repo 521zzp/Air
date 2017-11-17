@@ -7,7 +7,7 @@
 			</div>
 			<div class="content merchant-img-one">
 				<input type="file" style="display: none;" ref="picOne" @change="imgSelected(one)" accept="image/*" />
-				<img class="preview" :src="one.preview" alt="" />
+				<img v-if="one.preview" class="preview" :src="one.preview" alt="" />
 				<svg v-if="one.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(one)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -21,7 +21,7 @@
 			</div>
 			<div class="content merchant-img-two">
 				<input type="file" style="display: none;" ref="picTwo" @change="imgSelected(two)" accept="image/*" />
-				<img class="preview" :src="two.preview" alt="" />
+				<img v-if="two.preview" class="preview" :src="two.preview" alt="" />
 				<svg v-if="two.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(two)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -35,7 +35,7 @@
 			</div>
 			<div class="content merchant-img-three">
 				<input type="file" style="display: none;" ref="picThree" @change="imgSelected(three)" accept="image/*" />
-				<img class="preview" :src="three.preview" alt="" />
+				<img v-if="three.preview" class="preview" :src="three.preview" alt="" />
 				<svg v-if="three.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(three)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -49,7 +49,7 @@
 			</div>
 			<div class="content merchant-img-four">
 				<input type="file" style="display: none;" ref="picFour" @change="imgSelected(four)" accept="image/*" />
-				<img class="preview" :src="four.preview" alt="" />
+				<img v-if="four.preview" class="preview" :src="four.preview" alt="" />
 				<svg v-if="four.preview !== '' " class="iconfont delete" aria-hidden="true" @click="clear(four)">
 				    <use xlink:href="#icon-trash"></use>
 				</svg>
@@ -99,8 +99,24 @@ export default {
 		},
 		imgSelected (item) {
 			const file = this.$refs[item.inp].files[0]
-			const windowURL = window.URL || window.webkitURL;
-			item.preview = windowURL.createObjectURL(file);
+			/*const windowURL = window.URL || window.webkitURL;
+			item.preview = windowURL.createObjectURL(file);*/
+		
+			const fr = new FileReader()
+			fr.readAsDataURL(file)
+			fr.onload = function (e) {
+				item.preview = this.result
+			}
+			
+			fr.onabort = function () {
+				notice('读取文件错误请稍后拍摄')
+				item.preview = ''
+			}
+			
+			fr.onerror = function () {
+				notice('读取文件错误请稍后拍摄')
+				item.preview = ''
+			}
 		},
 		clear (item) {
 			this.$refs[item.inp].value = null

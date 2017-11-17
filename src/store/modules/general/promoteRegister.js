@@ -86,7 +86,6 @@ const actions = {
   	},
   	async promoteImageUpload ({ commit }, obj) {
   		loading(true)
-  		console.log(obj)
   		const form = new FormData()
   		form.append('imgOne', obj.imgOne)
   		//form.append('imgTwo', obj.imgTwo)

@@ -108,7 +108,6 @@ const actions = {
 	  		 * 如果第三步上传，返回结果后直接发送注册请求
 	  		 * 如果第二部上传，把返回地址存储到本地，step加一
 	  		 */
-	  		console.log('step================')
 	  		if (state.step === 2) {
 	  			commit(types.MERCHANT_IMAGE_UPLOAD, imgs)
 	  			
@@ -118,7 +117,7 @@ const actions = {
 		  			account: state.params.account,
 		  			phoneCode: state.params.phoneCode,
 		  			password: state.params.password,
-		  			invotor: state.params.invitor,
+		  			invitor: state.params.invitor,
 		  			name: state.params.name,
 		  			idCard: state.params.idCard,
 		  			gelocation: state.params.gelocation,
@@ -126,10 +125,10 @@ const actions = {
 		  			fzrPhone: state.params.fzrPhone,
 		  			customers: state.params.customers,
 		  			turnover: state.params.turnover,
-		  			imgOne: imgs.imgOne,
-		  			imgTwo: imgs.imgTwo,
-		  			imgThree: imgs.imgThree,
-		  			imgFour: imgs.imgFour,
+		  			imgOne: state.params.imgOne,
+		  			imgTwo: state.params.imgTwo,
+		  			imgThree: state.params.imgThree,
+		  			imgFour: state.params.imgFour,
 		  			imgFive: imgs.imgFive,
 		  			imgSix: imgs.imgSix,
 		  			imgSeven: imgs.imgSeven,
@@ -142,7 +141,7 @@ const actions = {
 	  		}
 	  		
   		} catch (e) {
-  			loading(true)
+  			loading(false)
   			throw e
   		}
   	},
