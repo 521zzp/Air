@@ -102,6 +102,10 @@ export default {
 			return this.$store.state.merchantRegister.type
 		}
 	},
+	created () {
+		const invitor = this.$route.query.invitor
+		this.$store.dispatch('merchantRegisterAllowed', { invitor })
+	},
 	methods: {
 		async sendCode () {
  			if (this.form.account.bool || await validateAlert(this.form, this.rules, 'account') ) {

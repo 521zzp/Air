@@ -1,12 +1,13 @@
 import * as types from '../../mutation-types'
 import { REGISTER_SEND_CODE, 
+		PROMOTE_REGISTER_ALLOWED,
 		PROMOTE_REGISTER_VALI_CODE,
 		PROMOTE_IMAGE_UPLOAD,
 		PROMOTE_REGISTER,
 		PROMOTE_VALI_IDCARD_NEXT,
 		VALICODE_IDCARD,
 		GET_GEOLOCATION,  } from '@/config/url'
-import { postModelTwo, analy } from '@/tool/net'
+import { postModelTwo, analy, getModel } from '@/tool/net'
 import { feedback, loading } from '@/tool/talk'
 import router from '@/router'
 
@@ -125,6 +126,18 @@ const actions = {
   	async promoteGetGeolocation ({ commit }, obj) {
   		const place = await fetch(GET_GEOLOCATION, postModelTwo(obj)).then(analy)
   		commit(types.PROMOTE_GEOLOCATION_UPDATE, place)
+  	},
+  	async promoteRegisterAllowed ({ commit }, obj) {
+  		
+  		console.log('邀请人', obj)
+  		const result = await fetch(PROMOTE_REGISTER_ALLOWED, getModel()).then(analy)
+  		if (!result.allow) {
+  			if (obj.invitor) {
+  				router.push(`/register?invitor=${obj.invitor}`)
+  			} else{
+  				router.push(`/register`)
+  			}
+  		} 
   	}
 }
 

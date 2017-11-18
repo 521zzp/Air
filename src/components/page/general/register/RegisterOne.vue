@@ -100,8 +100,9 @@ export default {
 		}*/
 	},
 	created () {
-		/*const type = this.$route.params.type
-		this.$store.dispatch('promoteTypeChange', type)*/
+		const invitor = this.$route.query.invitor
+		console.log('获取邀请人', invitor)
+		this.$store.dispatch('promoteRegisterAllowed', { invitor })
 	},
 	methods: {
 		async sendCode () {

@@ -20,6 +20,7 @@ export const GET_GEOLOCATION = BASEURL + '/getPosition'  //
 export const REGISTER_SEND_CODE = BASEURL + '/sendIdentifyingCode'  //发送验证码
 export const REGISTER = BASEURL + '/regist' //注册接口
 //新注册，推广注册活动
+export const PROMOTE_REGISTER_ALLOWED = BASEURL + '/registSwitch' //推广注册是否允许
 export const PROMOTE_REGISTER_SEND_CODE = BASEURL + '/ASFASGF' //发送验证码  暂时无效
 export const PROMOTE_REGISTER_VALI_CODE = BASEURL + '/confirmCode' //验证验证码
 export const PROMOTE_IMAGE_UPLOAD = BASEURL + '/uploadImage' //推广上传照片

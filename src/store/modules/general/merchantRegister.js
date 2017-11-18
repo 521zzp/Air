@@ -1,11 +1,12 @@
 import * as types from '../../mutation-types'
-import { REGISTER_SEND_CODE, 
+import { REGISTER_SEND_CODE,
 		VALICODE_IDCARD,
+		PROMOTE_REGISTER_ALLOWED,
 		VALICODE_PHONE_CODE,
 		MERCHANT_IMAGE_UPLOAD,
 		MERCHANT_REGISTER,
 		GET_GEOLOCATION,  } from '@/config/url'
-import { postModelTwo, analy } from '@/tool/net'
+import { postModelTwo, analy, getModel } from '@/tool/net'
 import { feedback, loading } from '@/tool/talk'
 import router from '@/router'
 
@@ -151,6 +152,17 @@ const actions = {
   	async merchantGetGeolocation ({ commit }, obj) {
   		const place = await fetch(GET_GEOLOCATION, postModelTwo(obj)).then(analy)
   		commit(types.MERCHANT_GEOLOCATION_UPDATE, place)
+  	},
+  	async merchantRegisterAllowed ({ commit }, obj) {
+  		const result = await fetch(PROMOTE_REGISTER_ALLOWED, getModel()).then(analy)
+  		if (!result.allow) {
+  			if (obj.invitor) {
+  				router.push(`/register?invitor=${obj.invitor}`)
+  			} else{
+  				router.push(`/register`)
+  			}
+  			
+  		} 
   	}
 }
 
