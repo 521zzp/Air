@@ -1,5 +1,6 @@
 <template>
 	<div class="register-one-container">
+		<div v-show="suggestShow" class="suggest">温馨提示：建议使用手机浏览器扫码打开此页面</div>
 		<img :src="logoImg" class="logo"/>
 		<div class="register-group">
 			<div class="rigist-item-wrap">
@@ -95,6 +96,10 @@ export default {
 		sendCodeLoading () {
 			return this.$store.state.promoteRegister.sendCodeLoading
 		},
+		suggestShow () {
+			return !!/MicroMessenger/i.test(navigator.userAgent) || !!/ QQ/i.test(navigator.userAgent) ||
+			(/MQQBrowser/i.test(navigator.userAgent) && /QQ/i.test((navigator.userAgent).split('MQQBrowser')))
+		}
 		/*type () {
 			return this.$store.state.promoteRegister.type
 		}*/
@@ -148,7 +153,14 @@ export default {
 </style>
 <style scoped="scoped" lang="less">
 @import url("../../../../config/base.less");
-
+.suggest{
+	height: 0.853333rem;
+	line-height: 0.853333rem;
+	font-size: 0.32rem;
+	background-color: #FFF5F5;
+	text-align: center;
+	color: #999999;
+}
 .logo{
 	display: block;
 	width: 3.333333rem;

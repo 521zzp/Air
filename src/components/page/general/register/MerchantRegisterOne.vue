@@ -1,5 +1,6 @@
 <template>
 	<div class="register-one-container">
+		<div v-show="suggestShow" class="suggest">温馨提示：建议使用手机浏览器扫码打开此页面</div>
 		<img :src="logoImg" class="logo"/>
 		<div class="merchant-wrap">
 			<span class="merchant">商户入驻</span>
@@ -100,6 +101,10 @@ export default {
 		},
 		type () {
 			return this.$store.state.merchantRegister.type
+		},
+		suggestShow () {
+			return !!/MicroMessenger/i.test(navigator.userAgent) || !!/ QQ/i.test(navigator.userAgent) ||
+			(/MQQBrowser/i.test(navigator.userAgent) && /QQ/i.test((navigator.userAgent).split('MQQBrowser')))
 		}
 	},
 	created () {
@@ -149,7 +154,14 @@ export default {
 </style>
 <style scoped="scoped" lang="less">
 @import url("../../../../config/base.less");
-
+.suggest{
+	height: 0.853333rem;
+	line-height: 0.853333rem;
+	font-size: 0.32rem;
+	background-color: #FFF5F5;
+	text-align: center;
+	color: #999999;
+}
 
 .merchant-wrap{
 	text-align: center;

@@ -128,7 +128,7 @@ export default {
 			} else if (!this.two.preview){
 				notice('请选择与渠道人员的合照')
 			} else if (!this.three.preview) {
-				notice('商户营业执照照片')
+				notice('请选择商户营业执照照片')
 			} else if (!this.four.preview) {
 				notice('请选择与平台签订协议的照片')
 			} else{

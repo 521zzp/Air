@@ -50,7 +50,7 @@ export default {
 }
 .three-gifts-container{
 	overflow: hidden;
-	height: 58.133333rem;
+	height: 52.453333rem;
 	background-image: url('@{image}/activity/17-11/three-gifts/bg.png');
 	background-size: contain;
 	position: relative;
