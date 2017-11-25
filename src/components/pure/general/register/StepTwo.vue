@@ -110,6 +110,7 @@ export default {
 		},
 		imgSelected (item) {
 			const file = this.$refs[item.inp].files[0]
+			
 			/*const windowURL = window.URL || window.webkitURL;
 			item.preview = windowURL.createObjectURL(file);*/
 			const fr = new FileReader()
@@ -133,12 +134,16 @@ export default {
 			item.preview = ''
 		},
 		submit () {
+			
+			const vm = this
+			
 			if (!this.one.preview) {
 				notice('请上传手势图片')
 			}  else{
 				const imgOne = this.$refs[this.one.inp].files[0] 
 				//const imgTwo = this.$refs[this.two.inp].files[0]
 				//const imgThree = this.$refs[this.three.inp].files[0]
+				
 				this.$store.dispatch('promoteImageUpload', { imgOne, imgIndex: this.imgIndex })
 			}
 		},

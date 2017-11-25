@@ -1,6 +1,6 @@
 <template>
 	<div class="step-two-container">
-		<div class="item">
+		<!--<div class="item">
 			<div class="title">
 				<span class="line"></span>
 				<span>负责人手持身份证照片（1张）</span>
@@ -27,7 +27,7 @@
 				</svg>
 			</div>
 			<mu-raised-button label="选择图片" class="upload" @click="toSelect(two)" />
-		</div>
+		</div>-->
 		<div class="item">
 			<div class="title">
 				<span class="line"></span>
@@ -123,20 +123,20 @@ export default {
 			item.preview = ''
 		},
 		submit () {
-			if (!this.one.preview) {
+			/*if (!this.one.preview) {
 				notice('请选择手持身份证的照片')
 			} else if (!this.two.preview){
 				notice('请选择与渠道人员的合照')
-			} else if (!this.three.preview) {
+			} else */if (!this.three.preview) {
 				notice('请选择商户营业执照照片')
 			} else if (!this.four.preview) {
 				notice('请选择与平台签订协议的照片')
 			} else{
-				const imgOne = this.$refs[this.one.inp].files[0] 
-				const imgTwo = this.$refs[this.two.inp].files[0]
+				//const imgOne = this.$refs[this.one.inp].files[0] 
+				//const imgTwo = this.$refs[this.two.inp].files[0]
 				const imgThree = this.$refs[this.three.inp].files[0]
 				const imgFour = this.$refs[this.four.inp].files[0]
-				this.$store.dispatch('merchantImageUpload', { imgOne, imgTwo, imgThree, imgFour })
+				this.$store.dispatch('merchantImageUpload', { /*imgOne, imgTwo, */imgThree, imgFour })
 			}
 		},
 		back () {

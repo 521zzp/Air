@@ -138,7 +138,7 @@ const actions = {
   				router.push(`/register`)
   			}
   		} 
-  	}
+  	},
 }
 
 const mutations = {

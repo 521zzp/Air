@@ -1,20 +1,22 @@
 <template>
 	<div class="step-two-container">
-		<MerchantStep :step="step"/>
+		<Step :step="step"/>
 		<MerchantStepOne v-if="step === 1" @stepChange="stepChange"/>
 		<MerchantStepTwo v-if="step === 2" @stepChange="stepChange"/>
-		<MerchantStepThree v-if="step === 3" @stepChange="stepChange"/>
-		<StepThree v-if="step === 4" />
+		<!--<MerchantStepThree v-if="step === 3" @stepChange="stepChange"/>-->
+		<StepThree v-if="step === 3" />
 	</div>
 </template>
 
 
 <script>
 
-import MerchantStep from '@/components/pure/general/register/MerchantStep'
+//import MerchantStep from '@/components/pure/general/register/MerchantStep'
+import Step from '@/components/pure/general/register/Step'
+
 import MerchantStepOne from '@/components/pure/general/register/MerchantStepOne'
 import MerchantStepTwo from '@/components/pure/general/register/MerchantStepTwo'
-import MerchantStepThree from '@/components/pure/general/register/MerchantStepThree'
+//import MerchantStepThree from '@/components/pure/general/register/MerchantStepThree'
 import MerchantStepFour from '@/components/pure/general/register/MerchantStepFour'
 import StepThree from '@/components/pure/general/register/StepThree'
 
@@ -44,10 +46,10 @@ export default {
 		}
 	},
 	components: {
-		MerchantStep,
+		Step,
 		MerchantStepOne,
 		MerchantStepTwo,
-		MerchantStepThree,
+		/*MerchantStepThree,*/
 		MerchantStepFour,
 		StepThree,
 	}

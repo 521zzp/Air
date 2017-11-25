@@ -109,10 +109,10 @@ const actions = {
 	  		 * 如果第三步上传，返回结果后直接发送注册请求
 	  		 * 如果第二部上传，把返回地址存储到本地，step加一
 	  		 */
-	  		if (state.step === 2) {
+	  		/*if (state.step === 2) {
 	  			commit(types.MERCHANT_IMAGE_UPLOAD, imgs)
 	  			
-	  		} else if (state.step === 3){
+	  		} else if (state.step === 3){*/
 	  			const register = {
 	  				type: 1, //1表示商户认证，2表示注册
 		  			account: state.params.account,
@@ -126,20 +126,20 @@ const actions = {
 		  			fzrPhone: state.params.fzrPhone,
 		  			customers: state.params.customers,
 		  			turnover: state.params.turnover,
-		  			imgOne: state.params.imgOne,
-		  			imgTwo: state.params.imgTwo,
-		  			imgThree: state.params.imgThree,
-		  			imgFour: state.params.imgFour,
-		  			imgFive: imgs.imgFive,
-		  			imgSix: imgs.imgSix,
-		  			imgSeven: imgs.imgSeven,
-		  			imgEight: imgs.imgEight,
-		  			imgNine: imgs.imgNine,
+		  		//	imgOne: state.params.imgOne,
+		  		//	imgTwo: state.params.imgTwo,
+		  			imgThree: imgs.imgThree,
+		  			imgFour: imgs.imgFour,
+		  		//	imgFive: imgs.imgFive,
+		  		//	imgSix: imgs.imgSix,
+		  		//	imgSeven: imgs.imgSeven,
+		  		//	imgEight: imgs.imgEight,
+		  		//	imgNine: imgs.imgNine,
 		  		}
 		  		const result = await fetch(MERCHANT_REGISTER, postModelTwo(register) ).then(analy)
-		  		result ? commit(types.MERCHANT_STEP_CHANGE, 4) : ''
+		  		result ? commit(types.MERCHANT_STEP_CHANGE, 3) : ''
 		  		
-	  		}
+	  		// }
 	  		
   		} catch (e) {
   			loading(false)
