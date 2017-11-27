@@ -12,21 +12,39 @@
 			</div>
 		</div>
 		<mu-raised-button  class="invite-btn" @click="invite" label="立即邀请"/>
+		<span style="color: #FFFFFF;">err:{{err}}</span><br/>
+		<span style="color: #FFFFFF;">
+			
+			
+			
+			:{{res}}</span>
 	</div>
 </template>
 
 <script>
-import { callAppRouter } from '@/tool/bridge'
+import { callAppRouter, callAppRouter2 } from '@/tool/bridge'
+import { notice } from '@/tool/talk'
+
 
 export default {
 	data () {
 		return {
+			err: '',
+			res: ''
 		}
 	},
 	methods: {
 		invite () {
+			const vm = this
 			callAppRouter('invite', null, function (err, res) {})
-			
+			/*callAppRouter2('invite', null, function (err, res) {
+				vm.err = err
+				vm.res = res
+				notice(res)
+				if(!err) {
+					notice('错误')
+				}
+			})*/
 		},
 	},
 }

@@ -46,6 +46,7 @@ import {checkNotNull, checkPhone, checkPwd, validateAlert, resultTraversal} from
 import Agreement from '@/components/page/stationary/Agreement'
 import { IMG } from '@/config/url'
 import { notice } from '@/tool/talk'
+//import geekt  from '@/tool/gt'
 
 export default {
 	data () {
@@ -106,8 +107,8 @@ export default {
 	},
 	created () {
 		const invitor = this.$route.query.invitor
-		console.log('获取邀请人', invitor)
-		this.$store.dispatch('promoteRegisterAllowed', { invitor })
+		//是否开启注册
+		//this.$store.dispatch('promoteRegisterAllowed', { invitor })
 	},
 	methods: {
 		async sendCode () {
@@ -135,9 +136,34 @@ export default {
 	mounted () {
 		const invitor = this.$route.query.invitor
 		this.form.invitor.value = invitor
+		
+		
+		/*
+		 * 极验
+		 */
+	/*	console.log('geek test')
+		console.log(geekt)
+		geekt()
+		
+		initGeetest({
+		   	// 以下配置参数来自服务端 SDK
+		   	gt: 'dsfazsd',
+		   	challenge: 'esdfd',
+		   	offline: false,
+		   	new_captcha: true
+		}, function (captchaObj) {
+		   	// 这里可以调用验证实例 captchaObj 的实例方法
+		   	console.log('验证实例，', captchaObj)
+		   	
+		   	
+		})*/
+		
+		
+		
 	},
 	components: {
 		Agreement
+		
 	}
 }
 	
