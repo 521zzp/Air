@@ -10,7 +10,7 @@
 					iOS下载</a>
 			</div>
 			<div class="download-item">
-				<a class="link" href="http://www.shangnongtou.com/static_img/apk/zgjf.apk" target="_blank" @click="androidDwonload">
+				<a class="link" href="http://www.zhangguijf.com/static_img/apk/zgjf.apk" target="_blank" @click="androidDwonload">
 					<svg class="iconfont download-icon" aria-hidden="true">
 					    <use xlink:href="#icon-android"></use>
 					</svg>

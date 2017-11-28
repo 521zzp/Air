@@ -3,6 +3,7 @@ export const NAV_CHANGE_TYPE = 'NAV_CHANGE_TYPE' //路由切换样式
 
 //登录&注册
 export const REGISTER_SEND_CODE = 'REGISTER_SEND_CODE' //注册发送验证码
+export const REGISTER_GEETEST_INIT = 'REGISTER_GEETEST_INIT' //极验初始化
 
 //新注册，推广注册活动
 export const PROMOTE_REGISTER_SEND_CODE = 'PROMOTE_REGISTER_SEND_CODE' //发送验证码

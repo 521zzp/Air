@@ -37,7 +37,7 @@ export const callAppRouter = (method, params, callback) => {
 		/*
 		 * 老方法
 		 */
-		/*window.bridge.callRouter(req, function(err, result) {
+		window.bridge.callRouter(req, function(err, result) {
 			var resultObj = null;
 			var errorMsg = null;
 			if(typeof(result) !== 'undefined' && result !== 'null' && result !== null) {
@@ -50,9 +50,9 @@ export const callAppRouter = (method, params, callback) => {
 				errorMsg = err;
 			}
 			callback(err, resultObj);
-		});*/
+		});
 		
-		setupWebViewJavascriptBridge(function(bridge) {
+		/*setupWebViewJavascriptBridge(function(bridge) {
 			bridge.callHandler(method, params, function(response) {
 				try { 
 					const { err, res } = JSON.parse(response)
@@ -61,7 +61,7 @@ export const callAppRouter = (method, params, callback) => {
 					callback(false)
 				}
 			})
-		})
+		})*/
 		
 		
 	} else if(os().isAndroid) { 

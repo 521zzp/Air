@@ -21,6 +21,8 @@
 					    <use :xlink:href="eye ? '#icon-ios-eye-outline' : '#icon-ios-eye-off-outline'"></use>
 					</svg>
 			</div>
+			<div class="rigist-item-wrap geetest" ref="geetest">
+			</div>
 			<div v-show="invitorShow" class="rigist-item-wrap">
 				 <input class="inp" type="text" v-model="form.invitor.value" maxlength="11" placeholder="邀请人号码（选填）"/>
 			</div>
@@ -50,6 +52,8 @@ import Agreement from '@/components/page/stationary/Agreement'
 import { isPc } from '@/tool/tool'
 import { notice } from '@/tool/talk'
 import { IMG } from '@/config/url'
+
+
 
 export default {
 	data () {
@@ -102,6 +106,11 @@ export default {
 		const invitor = this.$route.query.invitor
 		invitor ? this.form.invitor.value = invitor : ''
 		invitor ? this.invitorShow = false : ''
+		
+		
+		const geetest = this.$refs.geetest
+		this.$store.dispatch('registerGeetestInit', geetest)
+
 	},
 	/*beforeRouteEnter (to, from, next) {
 		const invitor = to.query.invitor
@@ -168,6 +177,12 @@ export default {
 @import url("../../../config/base.less");
 
 
+.geetest{
+	width: 8rem;
+	vertical-align: middle;
+	border-radius: 0.64rem;
+	overflow: hidden;
+}
 
 .loading-circle{
 	line-height: 1;

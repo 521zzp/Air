@@ -1,14 +1,16 @@
 import * as types from '../mutation-types'
-import { REGISTER_SEND_CODE, REGISTER } from '@/config/url'
-import { postModelTwo, analy } from '@/tool/net'
-import { feedback } from '@/tool/talk'
+import { REGISTER_SEND_CODE, REGISTER, REGISTER_GEETEST_INIT } from '@/config/url'
+import { postModelTwo, analy, getModel } from '@/tool/net'
+import { feedback, notice } from '@/tool/talk'
 import store from '@/store'
 import router from '@/router'
+import gt from '@/tool/gt'
 
 const state = {
 	text: '发送验证码',
 	sendAbel: true,
 	sendCodeLoading: false,
+	captchaObj: null, //极验实例
 }
 
 
@@ -53,8 +55,39 @@ const actions = {
 		}
   	},
   	async register ({ commit }, obj) {
-  		const result = await fetch(REGISTER, postModelTwo(obj)).then(analy)
-  		result ? feedback( 'ok', result.msg, () => router.push('/app')) : ''
+  		const vali = state.captchaObj.getValidate();
+  		
+  		
+  		if (!vali) { 
+  			notice('请先完成验证!') 
+  		} else {
+  			const valiResult = {
+  				geetest_challenge: vali.geetest_challenge,
+                geetest_validate: vali.geetest_validate,
+                geetest_seccode: vali.geetest_seccode
+  			}
+  			const result = await fetch(REGISTER, postModelTwo({ ...obj, ...valiResult  })).then(analy)
+  			result ? feedback( 'ok', result.msg, () => router.push('/app')) : ''
+  		}
+  		
+  	},
+  	async registerGeetestInit ({ commit }, domNode) {
+  		const data = await fetch(REGISTER_GEETEST_INIT, getModel()).then(analy)
+  		console.log('data', data)
+  		gt()
+  		
+  		initGeetest({
+		   	// 以下配置参数来自服务端 SDK
+		   	gt: data.gt,
+		   	challenge: data.challenge,
+		   	offline: !data.success,
+		   	new_captcha: true,
+		   	width: '100%',
+		}, function (captchaObj) {
+			commit(types.REGISTER_GEETEST_INIT, captchaObj)
+			captchaObj.appendTo(domNode)
+		   	// 这里可以调用验证实例 captchaObj 的实例方法
+		})
   	}
 }
 
@@ -67,6 +100,9 @@ const mutations = {
 		}else{
 			feedback(obj.msg, 4)
 		}
+    },
+    [types.REGISTER_GEETEST_INIT] (state, obj) {
+   		state.captchaObj = obj
     }
 }
 

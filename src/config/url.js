@@ -19,6 +19,9 @@ export const GET_GEOLOCATION = BASEURL + '/getPosition'  //
 //登录&注册
 export const REGISTER_SEND_CODE = BASEURL + '/sendIdentifyingCode'  //发送验证码
 export const REGISTER = BASEURL + '/regist' //注册接口
+export const REGISTER_GEETEST_INIT = BASEURL + '/initialization' //极验初始化
+
+
 //新注册，推广注册活动
 export const PROMOTE_REGISTER_ALLOWED = BASEURL + '/registSwitch' //推广注册是否允许
 export const PROMOTE_REGISTER_SEND_CODE = BASEURL + '/ASFASGF' //发送验证码  暂时无效
