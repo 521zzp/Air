@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import 'babel-polyfill'
 import { actions } from './actions'
 import { mutations } from './mutations'
 import register from './modules/register'

@@ -55,7 +55,7 @@ const actions = {
 		}
   	},
   	async register ({ commit }, obj) {
-  		const vali = state.captchaObj.getValidate();
+  		const vali = state.captchaObj ? state.captchaObj.getValidate() : false;
   		
   		
   		if (!vali) { 
@@ -67,7 +67,12 @@ const actions = {
                 geetest_seccode: vali.geetest_seccode
   			}
   			const result = await fetch(REGISTER, postModelTwo({ ...obj, ...valiResult  })).then(analy)
-  			result ? feedback( 'ok', result.msg, () => router.push('/app')) : ''
+  			if (result) {
+  				feedback( 'ok', result.msg, () => router.push('/app'))
+  			} else{
+  				state.captchaObj && state.captchaObj.reset()
+  			}
+  			
   		}
   		
   	},
