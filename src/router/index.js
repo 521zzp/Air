@@ -177,7 +177,12 @@ const ThreeGifts = resolve => {
     resolve(require('@/components/page/activity/17-11/ThreeGifts.vue'))
   })
 }
-
+//蕴才汤注册成功
+const YuncaitangReigsterSuccess = resolve => {
+  require.ensure(['@/components/page/activity/17-12/YuncaitangReigsterSuccess.vue'], () => {
+    resolve(require('@/components/page/activity/17-12/YuncaitangReigsterSuccess.vue'))
+  })
+}
 import store from '@/store'
 
 Vue.use(Router)
@@ -417,6 +422,14 @@ const router = new Router({
       component: ThreeGifts,
       meta: {
       	weight: 1
+      }
+		},
+		{
+      path: '/yct-register/success',
+      name: 'YuncaitangReigsterSuccess',
+      component: YuncaitangReigsterSuccess,
+      meta: {
+      	weight: 2
       }
 		},
 		{

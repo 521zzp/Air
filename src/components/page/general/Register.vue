@@ -21,7 +21,7 @@
 					    <use :xlink:href="eye ? '#icon-ios-eye-outline' : '#icon-ios-eye-off-outline'"></use>
 					</svg>
 			</div>
-			<div class="rigist-item-wrap geetest" ref="geetest">
+			<div v-show="geetestOpen" class="rigist-item-wrap geetest" ref="geetest">
 			</div>
 			<div v-show="invitorShow" class="rigist-item-wrap">
 				 <input class="inp" type="text" v-model="form.invitor.value" maxlength="11" placeholder="邀请人号码（选填）"/>
@@ -130,6 +130,9 @@ export default {
 		},
 		sendCodeLoading () {
 			return this.$store.state.register.sendCodeLoading
+		},
+		geetestOpen () {
+			return !!this.$store.state.register.geetestOpen
 		}
 	},
 	methods: {

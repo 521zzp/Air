@@ -11,6 +11,7 @@ const state = {
 	sendAbel: true,
 	sendCodeLoading: false,
 	captchaObj: null, //极验实例
+	geetestOpen: 0, //极验开关，0 ：关 1 ： 开
 }
 
 
@@ -57,8 +58,7 @@ const actions = {
   	async register ({ commit }, obj) {
   		const vali = state.captchaObj ? state.captchaObj.getValidate() : false;
   		
-  		
-  		if (!vali) { 
+  		if (state.captchaObj && !vali) { 
   			notice('请先完成验证!') 
   		} else {
   			const valiResult = {
@@ -79,20 +79,24 @@ const actions = {
   	async registerGeetestInit ({ commit }, domNode) {
   		const data = await fetch(REGISTER_GEETEST_INIT, getModel()).then(analy)
   		console.log('data', data)
-  		gt()
+		commit(types.REGISTER_GEETEST_SWITCH, data.register)
+		if (data.register) {
+			//极验初始化
+			gt()
+	  		initGeetest({
+			   	// 以下配置参数来自服务端 SDK
+			   	gt: data.gt,
+			   	challenge: data.challenge,
+			   	offline: !data.success,
+			   	new_captcha: true,
+			   	width: '100%',
+			}, function (captchaObj) {
+				commit(types.REGISTER_GEETEST_INIT, captchaObj)
+				captchaObj.appendTo(domNode)
+			   	// 这里可以调用验证实例 captchaObj 的实例方法
+			})
+		}
   		
-  		initGeetest({
-		   	// 以下配置参数来自服务端 SDK
-		   	gt: data.gt,
-		   	challenge: data.challenge,
-		   	offline: !data.success,
-		   	new_captcha: true,
-		   	width: '100%',
-		}, function (captchaObj) {
-			commit(types.REGISTER_GEETEST_INIT, captchaObj)
-			captchaObj.appendTo(domNode)
-		   	// 这里可以调用验证实例 captchaObj 的实例方法
-		})
   	}
 }
 
@@ -108,6 +112,9 @@ const mutations = {
     },
     [types.REGISTER_GEETEST_INIT] (state, obj) {
    		state.captchaObj = obj
+    },
+    [types.REGISTER_GEETEST_SWITCH] (state, obj) {
+    	state.geetestOpen = obj
     }
 }
 
