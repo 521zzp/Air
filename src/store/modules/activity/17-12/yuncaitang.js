@@ -1,5 +1,5 @@
-import * as types from '../mutation-types'
-import { REGISTER_SEND_CODE, REGISTER, REGISTER_GEETEST_INIT } from '@/config/url'
+import * as types from '@/store/mutation-types'
+import { YCT_REGISTER_SEND_CODE, YCT_REGISTER, YCT_REGISTER_GEETEST_INIT } from '@/config/url'
 import { postModelTwo, analy, getModel } from '@/tool/net'
 import { feedback, notice } from '@/tool/talk'
 import store from '@/store'
@@ -16,11 +16,11 @@ const state = {
 
 
 const actions = {
-	async registSendCode ({ commit }, obj){
+	async yctRegistSendCode ({ commit }, obj){
 		if (state.sendAbel) {
 			state.sendAbel = false
 			state.sendCodeLoading = true
-			fetch(REGISTER_SEND_CODE, postModelTwo(obj)).then(analy)
+			fetch(YCT_REGISTER_SEND_CODE, postModelTwo(obj)).then(analy)
 				.then((datas)=>{
 					state.sendCodeLoading = false
 					if (datas) {
@@ -55,7 +55,7 @@ const actions = {
 			})
 		}
   	},
-  	async register ({ commit }, obj) {
+  	async yctRegister ({ commit }, obj) {
   		const vali = state.captchaObj ? state.captchaObj.getValidate() : false;
   		
   		if (state.captchaObj && !vali) { 
@@ -66,9 +66,9 @@ const actions = {
                 geetest_validate: vali.geetest_validate,
                 geetest_seccode: vali.geetest_seccode
   			}
-  			const result = await fetch(REGISTER, postModelTwo({ ...obj, ...valiResult  })).then(analy)
+  			const result = await fetch(YCT_REGISTER, postModelTwo({ ...obj, ...valiResult  })).then(analy)
   			if (result) {
-  				feedback( 'ok', result.msg, () => router.push('/app'))
+  				feedback( 'ok', result.msg, () => router.push('/yct-register/success'))
   			} else{
   				state.captchaObj && state.captchaObj.reset()
   			}
@@ -76,9 +76,9 @@ const actions = {
   		}
   		
   	},
-  	async registerGeetestInit ({ commit }, domNode) {
-  		const data = await fetch(REGISTER_GEETEST_INIT, getModel()).then(analy)
-		commit(types.REGISTER_GEETEST_SWITCH, data.register)
+  	async yctRegisterGeetestInit ({ commit }, domNode) {
+  		const data = await fetch(YCT_REGISTER_GEETEST_INIT, getModel()).then(analy)
+		commit(types.YCT_REGISTER_GEETEST_SWITCH, data.register)
 		if (data.register) {
 			//极验初始化
 			gt()
@@ -90,7 +90,7 @@ const actions = {
 			   	new_captcha: true,
 			   	width: '100%',
 			}, function (captchaObj) {
-				commit(types.REGISTER_GEETEST_INIT, captchaObj)
+				commit(types.YCT_REGISTER_GEETEST_INIT, captchaObj)
 				captchaObj.appendTo(domNode)
 				
 				captchaObj.onSuccess(() => {
@@ -113,19 +113,10 @@ const actions = {
 }
 
 const mutations = {
-	[types.REGISTER_SEND_CODE] (state, obj) {
-		if (obj.code === 200) {
-			store.state.token = obj.token;
-			store.state.user = obj.obj;
-			feedback(obj.msg, 2, ()=>router.push('/'));
-		}else{
-			feedback(obj.msg, 4)
-		}
-    },
-    [types.REGISTER_GEETEST_INIT] (state, obj) {
+    [types.YCT_REGISTER_GEETEST_INIT] (state, obj) {
    		state.captchaObj = obj
     },
-    [types.REGISTER_GEETEST_SWITCH] (state, obj) {
+    [types.YCT_REGISTER_GEETEST_SWITCH] (state, obj) {
     	state.geetestOpen = obj
     }
 }

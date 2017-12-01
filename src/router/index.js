@@ -183,6 +183,14 @@ const YuncaitangReigsterSuccess = resolve => {
     resolve(require('@/components/page/activity/17-12/YuncaitangReigsterSuccess.vue'))
   })
 }
+const YuncaitangRegister = resolve => {
+  require.ensure(['@/components/page/activity/17-12/YuncaitangRegister.vue'], () => {
+    resolve(require('@/components/page/activity/17-12/YuncaitangRegister.vue'))
+  })
+}
+
+
+
 import store from '@/store'
 
 Vue.use(Router)
@@ -430,6 +438,14 @@ const router = new Router({
       component: YuncaitangReigsterSuccess,
       meta: {
       	weight: 2
+      }
+		},
+		{
+      path: '/yct-register',
+      name: 'YuncaitangRegister',
+      component: YuncaitangRegister,
+      meta: {
+      	weight: 3
       }
 		},
 		{

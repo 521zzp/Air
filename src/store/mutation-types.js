@@ -51,3 +51,9 @@ export const CUSTOMER_SERVICE_UPLOAD_IMAGE = 'CUSTOMER_SERVICE_UPLOAD_IMAGE' //�
 export const PRODUCT_INFO = 'PRODUCT_INFO' //产品详情，根据产品id获取产品详情
 
 
+/*
+ * 活动
+ */
+//蕴才汤活动
+export const YCT_REGISTER_GEETEST_INIT = 'YCT_REGISTER_GEETEST_INIT' //蕴才汤极验初始化
+export const YCT_REGISTER_GEETEST_SWITCH = 'YCT_REGISTER_GEETEST_SWITCH' //蕴才汤极验初始化

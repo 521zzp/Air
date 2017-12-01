@@ -53,3 +53,13 @@ export const LOAN_AGREEMENT = BASEURL + '/agreement'  //借款协议
 
 //产品相关
 export const PRODUCT_INFO = BASEURL + '/getProductDes' //产品详情，根据产品id获取产品详情
+
+
+/*
+ * 活动
+ */
+//蕴才汤活动
+export const YCT_REGISTER_SEND_CODE = BASEURL + '/sendIdentifyingCode'  //发送验证码
+export const YCT_REGISTER = BASEURL + '/yctRegist' //蕴才汤注册
+export const YCT_REGISTER_GEETEST_INIT = BASEURL + '/initialization' //蕴才汤极验初始化
+
