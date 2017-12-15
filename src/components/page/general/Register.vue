@@ -6,6 +6,8 @@
 			<div class="rigist-item-wrap">
 				 <input class="inp" type="text"  v-model="form.account.value" placeholder="手机号码"/>
 			</div>
+			<div v-show="geetestOpen" class="rigist-item-wrap geetest" ref="geetest">
+			</div>
 			<div class="rigist-item-wrap">
 					<input class="inp" type="text" v-model="form.phoneCode.value"  placeholder="验证码"/>
 					<span v-if="sendCodeLoading" class="send-code" @click="sendCode">
@@ -20,8 +22,6 @@
 					<svg class="iconfont eye " aria-hidden="false" @click="eye = !eye">
 					    <use :xlink:href="eye ? '#icon-ios-eye-outline' : '#icon-ios-eye-off-outline'"></use>
 					</svg>
-			</div>
-			<div v-show="geetestOpen" class="rigist-item-wrap geetest" ref="geetest">
 			</div>
 			<div v-show="invitorShow" class="rigist-item-wrap">
 				 <input class="inp" type="text" v-model="form.invitor.value" maxlength="11" placeholder="邀请人号码（选填）"/>

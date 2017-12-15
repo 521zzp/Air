@@ -12,12 +12,6 @@
 			</div>
 		</div>
 		<mu-raised-button  class="invite-btn" @click="invite" label="立即邀请"/>
-		<span style="color: #FFFFFF;">err:{{err}}</span><br/>
-		<span style="color: #FFFFFF;">
-			
-			
-			
-			:{{res}}</span>
 	</div>
 </template>
 
@@ -68,7 +62,7 @@ export default {
 }
 .three-gifts-container{
 	overflow: hidden;
-	height: 52.453333rem;
+	height: 54.053333rem;
 	background-image: url('@{image}/activity/17-11/three-gifts/bg.png');
 	background-size: contain;
 	position: relative;
